@@ -1,0 +1,102 @@
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #232323;
+}
+.title14 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #232323;
+}
+.title18 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #232323;
+}
+.title20 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #232323;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: 400;
+  color: #232323;
+}
+.value18 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #232323;
+}
+.value20 {
+  font-size: 20px;
+  font-weight: 400;
+  color: #232323;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #232323;
+}
+.label18 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #232323;
+}
+
+.desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: #232323;
+}
+.desc14 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #232323;
+}
+.desc16 {
+  font-size: 16px;
+  font-weight: 400;
+  color: #232323;
+}
+.desc18 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #232323;
+}
+
+.date {
+  font-size: 12px;
+  font-weight: 400;
+  color: #232323;
+}
+.date14 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #232323;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 600;
+  color: #232323;
+}
+.price20 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #232323;
+}
+
+.unit {
+  font-size: 12px;
+  font-weight: 600;
+  color: #232323;
+}
+
+.unit14 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #232323;
+}
