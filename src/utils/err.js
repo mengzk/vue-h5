@@ -1,0 +1,28 @@
+/**
+ * Author: Meng
+ * Date: 2025-04-23
+ * Modify: 2025-04-23
+ * Desc: 
+ */
+
+export function errHandler() {
+  window.addEventListener("error", (event) => {
+    console.log("errorHandler", event);
+    // event.preventDefault();
+    // event.stopPropagation();
+    // return true;
+  });
+
+  window.addEventListener("unhandledrejection", (event) => {
+    console.log("unhandledrejection", event);
+    // event.preventDefault();
+    // event.stopPropagation();
+    // return true;
+  });
+  window.addEventListener("rejectionhandled", (event) => {
+    console.log("rejectionhandled", event);
+    // event.preventDefault();
+    // event.stopPropagation();
+    // return true;
+  });
+}

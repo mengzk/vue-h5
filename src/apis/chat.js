@@ -5,8 +5,8 @@
  * Desc: 聊天模块
  * https://www.volcengine.com/docs/82379/1298454#%E9%89%B4%E6%9D%83%E6%96%B9%E5%BC%8F
  */
-import { request } from "../network/index";
-import Consts from "@/config/const";
+import { request } from "@/modules/network";
+import Constants from "@/config/constant";
 
 // 对话聊天
 export function chatCompletions(params = {}) {
@@ -38,7 +38,7 @@ export function chatV3Completions(data = []) {
     tag: "ark",
     loading: false,
     headers: {
-      Authorization: Consts.FZHS,
+      Authorization: Constants.FZHS,
     },
     params: {
       model: "deepseek-r1-250120",

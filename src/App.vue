@@ -7,6 +7,16 @@
   </router-view>
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { getUrlParams } from "@/utils";
+
+// 初始化账号信息
+onMounted(() => {
+  const res = getUrlParams();
+  console.log("---> query", res);
+});
+</script>
 
 <style scoped></style>

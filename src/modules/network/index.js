@@ -1,7 +1,8 @@
 /**
  * Author: Meng
- * Date: 2023-06-09
- * Desc: 2023-06-09
+ * Date: 2025-03-23
+ * Modify: 2025-03-23
+ * Desc: 
  */
 
 import Loading from "@/components/widget/loading";
@@ -16,9 +17,9 @@ export function request({
   method = "GET",
   params = {},
   headers = {},
+  toast = true,
   loading = true,
   loadingText = "加载中...",
-  toast = true,
   onParseData,
 } = {}) {
   // 显示加载中
@@ -30,7 +31,7 @@ export function request({
     let result = null;
     const options = {
       method,
-      url: getDomainFromTag(tag) + path,
+      url: getDomainFromTag(tag, path),
       data: mergeParams(params),
       headers: mergeHeaders(headers),
     };

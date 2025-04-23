@@ -40,7 +40,7 @@ import Header from "@/components/Header.vue";
 
 import Loading from "@/components/widget/loading";
 
-import { chatV3Completions } from "@/modules/api/chat";
+import { chatV3Completions } from "@/apis/chat";
 
 // const avatar = "https://img.yzcdn.cn/vant/cat.jpeg";
 import robot from "@/assets/robot.png";
@@ -132,15 +132,15 @@ function parseMarkdown(text) {
 }
 .scroll-box {
   flex: 1;
-  padding: 0 32px;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
 }
 .chat-item {
   display: flex;
-  border-radius: 16px;
-  margin-right: 96px;
+  border-radius: 8px;
+  margin-right: 24px;
   margin-bottom: 32px;
 }
 .chat-item-right {

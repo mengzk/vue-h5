@@ -1,17 +1,22 @@
 import axios from "axios";
 
 const instance = axios.create({
-  timeout: 90000,
+  timeout: 30000,
   headers: { "Content-Type": "application/json; charset=utf-8" },
 });
 
 // 请求事例
-export function httpClient(options) {
-  // console.log('---> options', options);
+export async function httpClient(options) {
+  if(options.method == "GET") {
+    options.params = options.data;
+    delete options.data;
+  }
+  // console.log("options--->", options);
+
   return instance.request(options)
   .then((response) => {
     const code = response.status;
-    if(response.status == 200) {
+    if(code == 200) {
       return response.data;
     }else {
       const message = parseErr(code);
@@ -19,14 +24,18 @@ export function httpClient(options) {
     }
   })
   .catch((err) => {
+    let message = '';
     if (err.response) {
-      console.warn('http response error:', err.response);
+      message = err.response.data.message || err.response.message || err.response.statusText || err.message || '服务异常，请检查网络';
+      console.warn('http response error:', err.response.data||err.response);
     } else if (err.request) {
-      console.warn('http request error:', err.request);
+      message = err.message;
+      console.warn('http request error:', err);
     } else {
+      message = err.message || '网络异常，请检查网络连接';
       console.warn('http client error:', err.message);
     }
-    return err;
+    return {code: -1010, message, data: null};
   });
 }
 

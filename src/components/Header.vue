@@ -58,7 +58,7 @@ function onBack() {
 <style scoped>
 .v-toolbar {
   width: 100vw;
-  height: 200px;
+  height: 56px;
   top: 0;
   left: 0;
   z-index: 3;
@@ -70,14 +70,10 @@ function onBack() {
 }
 
 .v-toolbar-action {
-  width: 100px;
-  height: 100px;
-  margin: 72px 56px 72px 60px;
-  border-radius: 40px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--box-color);
 }
 
 .v-toolbar-action2 {
@@ -85,17 +81,18 @@ function onBack() {
 }
 
 .v-toolbar-title {
-  flex: 1;
-  font-size: 60px;
+  font-size: 16px;
   font-weight: bold;
 }
 
 .v-toolbar-back {
-  width: 70px;
-  height: 70px;
+  width: 20px;
+  height: 20px;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 .v-toolbar-height {
-  height: 200px;
+  height: 56px;
 }
 </style>

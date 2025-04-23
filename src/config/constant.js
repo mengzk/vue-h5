@@ -6,16 +6,22 @@
  * 监听刷新动作,刷新时存储数据,刷新结束后读取数据
  */
 
-const Consts = {
-  sn: 'RL7651',
+const Constants = {
+  env: process.env.NODE_ENV,
+  inApp: false,
+  isIOS: false,
+  platform: 'web',
   version: '1.0.0',
-  platform: '',
   secret: '',
-  appid: '',
+  appId: '',
   token: '',
-  userId: 'f5df02730ab',
-  FZHS: 'Bearer -f5b3-4090-be1e-',
+  userId: '',
+  userName: '',
+  userPhone: '',
+  userInfo: {},
   
+  FZHS: 'FZHSJW--',
+
   screen: {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -40,6 +46,4 @@ function setProperty(propertyKey='', value='') {
   document.documentElement.style.setProperty(propertyKey, value);
 }
 
-console.log('Consts', Consts);
-
-export default Consts;
+export default Constants;

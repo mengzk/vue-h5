@@ -4,47 +4,54 @@
  * Modify: 2023-06-09
  * Desc:
  */
-const envData = import.meta.env // 环境变量
+const envData = import.meta.env;
 
 import Configs from "@/config/index";
-import Consts from "@/config/const";
+import Constants from "@/config/constant";
 
-
-console.log('------> envData', envData);
 // 环境及服务器设置
 const requestDomains = {
   prod: {
-    api: "https://aimlai.com/healthcare",
-    ark: "https://ark.cn-beijing.volces.com/api",
-    order: "https://order.demo.com"
+    api: "https://xxx.com",
+    ark: "https://ark.com/api",
   },
   dev: {
     api: "/care",
     ark: "/ark",
-    order: "/order"
   },
 };
 
 // 获取指定标签环境域名
 export function getRequestUrl(tag, path) {
   const domain = tag || "api";
-  return requestDomains[Configs.env][domain];
+  return requestDomains[Configs.env][domain] + path;
 }
 
 // 获取指定标签环境域名
-export function getDomainFromTag(tag) {
-  // const envTag = env || Configs.env;
-  // const domain = tag || "api";
-  return requestDomains[envData.VITE_ENV][tag];
-  // return envData.VITE_API;
+export function getDomainFromTag(tag, path) {
+  const key = tag || "api";
+  let domain = "";
+  switch (key) {
+    case "api":
+      domain = envData.VITE_API;
+      break;
+    case "ark":
+      domain = envData.VITE_ARK;
+      break;
+    default:
+      domain = envData.VITE_API;
+      break;
+  }
+
+  return domain + path;
 }
 
 // 请求头及参数处理
 export function mergeHeaders(headers={}) {
-  const token = Consts.token || 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6Ijg0MWNjNDI4LTE2ZjMtNDVhNi04MWEzLWQyY2NmM2IyNDY2NCJ9.lUAMmF7KhH80_DqheFc1xT37OsfY6sHhiT4up2qFleOrXzExU2KpBK8xAZTmrcv1KzND9aLjhmgYft6nMyVGvg';
+  const token = Constants.token || '...';
   return {
     Authorization: token,
-    sn: Consts.sn,
+    sn: Constants.sn,
     // token,
     ...headers
   };
@@ -56,7 +63,7 @@ export function mergeParams(params={}) {
 }
 
 // 配置 
-export function network(options) {
+export async function network(options) {
   if (options.method == "POST") {
     options.body = JSON.stringify(options.data);
     delete options.data;

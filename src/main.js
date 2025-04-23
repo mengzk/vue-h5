@@ -12,8 +12,7 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router/index";
 
-import "./utils/log";
-import "./utils/scene";
+import "./utils/boot";
 
 const app = createApp(App);
 

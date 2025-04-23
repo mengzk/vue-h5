@@ -4,13 +4,18 @@
  * Modify: 2024-08-01
  * Desc:
  */
-import { request } from "../network/index";
-import {pulseDate, tongueDate} from '../mock'
+import { request } from "@/modules/network";
 
 export function getHomeData(params={}) {
   return request({
     path: "/home",
     method: "GET",
+  }).then(res => {
+    if(res.code == 0) {
+      return res;
+    }else {
+      return {code: 0, data: {}};
+    }
   });
 }
 
@@ -22,12 +27,6 @@ export function getPulseReport(rid='') {
     path: `/api/healthDeviceDetection/getSamplingReport?reportId=${rid}`,
     method: "GET",
     params: {}
-  }).then(res => {
-    if(res.code == 0) {
-      return res;
-    }else {
-      return {code: 0, data: pulseDate};
-    }
   });
 }
 
@@ -39,11 +38,5 @@ export function getTongueReport(sid='') {
     path: `/api/facetongue/getDetectionReport?sessionId=${sid}`,
     method: "GET",
     params: {}
-  }).then(res => {
-    if(res.code == 0) {
-      return res;
-    }else {
-      return {code: 0, data: tongueDate};
-    }
-  }); 
+  });
 }

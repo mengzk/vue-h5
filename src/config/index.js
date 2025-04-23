@@ -6,8 +6,11 @@
  */
 
 const Configs = {
-  env: 'dev',
-  host: '',
+  env: process.env.NODE_ENV,
+  domain: "api",
+  refresh: false,
+  printLog: false,
+  time: Date.now(),
 }
 
 export default Configs;

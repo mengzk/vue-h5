@@ -1,3 +1,10 @@
+/**
+ * Author: Meng
+ * Date: 2025-04-23
+ * Modify: 2025-04-23
+ * Desc: 
+ * 文档: https://vitejs.dev/config/
+ */
 import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "vite";
@@ -8,7 +15,7 @@ import legacy from "@vitejs/plugin-legacy";
 import pxToRem from "./pxtorem.config";
 
 const isDev = process.env.NODE_ENV !== "production";
-// https://vitejs.dev/config/
+
 export default defineConfig({
   base: isDev ? '' : './', // 设置资源相对路径下加载资源。
   plugins: [
