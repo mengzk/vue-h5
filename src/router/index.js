@@ -36,18 +36,24 @@ const routers = createRouter({
       component: () => import("../pages/chat/ChatPage.vue"),
     },
     {
+      path: "/preivew",
+      name: "Preview",
+      meta: { transition: "slide-left", title: "文件预览" },
+      component: () => import("../pages/common/Preview.vue"),
+      children: [
+        {
+          path: "pdf",
+          name: "PDF",
+          meta: { transition: "slide-left", title: "PDF预览" },
+          component: () => import("../pages/common/PDFView.vue"),
+        }
+      ]
+    },
+    {
       path: "/test",
       name: "Test",
       meta: { title: "test" },
       component: () => import("../pages/warn/TestView.vue"),
-      // children: [
-      //   {
-      //     path: "/home",
-      //     name: "Home",
-      //     meta: { transition: "slide-left", title: "首页" },
-      //     component: () => import("../pages/main/HomeView3.vue"),
-      //   },
-      // ],
     },
     {
       path: "/*",
