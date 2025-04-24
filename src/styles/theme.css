@@ -1,22 +1,20 @@
 /* semantic color variables for this project */
 :root {
   --theme: #3579F6;
-  --bg-color: #212026;
-  --box-color: rgba(255, 255, 255, 0.15);
+  --bg-color: #f5f6f3;
+  --box-color: rgba(255, 255, 255, 0.1);
   --line-color: rgba(255, 255, 255, 0.3);
 
   --border: #e0e0e0;
   --border-hover: #d0d0d0;
 
-  --text: white;
-  --tit-color: white;
-  --sut-color: #e3e3e3;
-  --val-color: #d3d3d3;
-  --lab-color: #c3c3c3;
-  --date-color: #999999;
-  --hint-color: #999999;
-  --b-color: #232323;
-  --b2-color: #878787;
+  --text: #232323;
+  --tit-color: #232323;
+  --sut-color: #454647;
+  --val-color: #454647;
+  --lab-color: #878689;
+  --date-color: #989697;
+  --hint-color: #989697;
 
   --status: #ff9900;
   --status2: #E55C5C;

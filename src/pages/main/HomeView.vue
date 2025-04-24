@@ -1,9 +1,15 @@
 <template>
-  <div class="page home">
-    <div class="home-back" @click="onBack">
-      <img class="back-icon" :src="backIc" />
-    </div>
-    <div class="float-btn" @click="gotoAi">AI</div>
+  <div class="home">
+    <Cell label="这是什么" value="合适的肌肤" />
+    <Cell label="这是什么" value="合适的肌肤" />
+    <Cell label="这是什么" value="合适的肌肤" />
+    <Cell label="这是什么" value="合适的肌肤" />
+    <Cell label="这是什么" value="合适的肌肤" />
+    <Cell label="这是什么">
+      <template #value>
+        <strong>自定义内容</strong>
+      </template>
+    </Cell>
   </div>
 </template>
 
@@ -11,34 +17,26 @@
 import { onMounted, onActivated, onDeactivated, ref } from "vue";
 import { useRouter } from "vue-router";
 
-import { getUrlParams } from "@/utils";
+import { Cell } from "@/components";
 
-import backIc from "@/assets/arrow.png";
+import { getUrlParams } from "@/utils";
 
 const router = useRouter();
 const { rid, sid } = getUrlParams();
 
 onMounted(() => {
   console.log("HomeView ---> ", window.innerHeight, window.innerWidth);
-  
+
 });
 
 onActivated(() => {
   console.log("组件已激活");
-  
+
 });
 
 onDeactivated(() => {
   console.log("组件已失活");
 });
-
-function onBack() {
-  if (window.ql) {
-    window.ql.close();
-  } else {
-    console.log("--------> app close not found");
-  }
-}
 
 function gotoAi() {
   sessionStorage.setItem("chat-text", `如何解读： 并给出适当建议`);
@@ -49,7 +47,8 @@ function gotoAi() {
 <style scoped>
 .home {
   height: 100vh;
-  flex-direction: row;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-back {
@@ -64,6 +63,7 @@ function gotoAi() {
   justify-content: center;
   background-color: var(--box-color);
 }
+
 .back-icon {
   width: 70px;
   height: 70px;
@@ -77,9 +77,11 @@ function gotoAi() {
   align-items: center;
   justify-content: center;
 }
+
 .value-box span:not(:first-child) {
   margin-top: 30px;
 }
+
 .value-text {
   /* text-align: center; */
   font-weight: 500;
