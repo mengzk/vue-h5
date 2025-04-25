@@ -6,3 +6,4 @@
  */
 
 export { default as Cell } from './Cell.vue';
+export { default as FlatList } from './FlatList.vue';

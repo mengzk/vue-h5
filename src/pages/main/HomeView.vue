@@ -1,15 +1,14 @@
 <template>
   <div class="home">
-    <Cell label="这是什么" value="合适的肌肤" />
-    <Cell label="这是什么" value="合适的肌肤" />
-    <Cell label="这是什么" value="合适的肌肤" />
-    <Cell label="这是什么" value="合适的肌肤" />
-    <Cell label="这是什么" value="合适的肌肤" />
-    <Cell label="这是什么">
-      <template #value>
-        <strong>自定义内容</strong>
-      </template>
-    </Cell>
+    <FlatList>
+      <Cell label="这是什么" value="默认展示" />
+      <Cell label="这是什么" value="默认展示" />
+      <Cell label="这是什么">
+        <template #value>
+          <strong>自定义Value</strong>
+        </template>
+      </Cell>
+    </FlatList>
   </div>
 </template>
 
@@ -17,7 +16,7 @@
 import { onMounted, onActivated, onDeactivated, ref } from "vue";
 import { useRouter } from "vue-router";
 
-import { Cell } from "@/components";
+import { Cell, FlatList } from "@/components";
 
 import { getUrlParams } from "@/utils";
 
