@@ -4,11 +4,10 @@
     <div class="pull-to-refresh" :style="{ height: `${topHeight}px` }">
       {{ refreshText }}
     </div>
-
+    <!-- 列表 -->
     <div class="flat-list-content">
       <slot></slot>
     </div>
-
     <!-- 上拉加载提示 -->
     <div v-if="isLoading" class="loading-more">
       加载中...
