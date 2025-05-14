@@ -12,7 +12,7 @@
 <script setup>
 import { RouterView } from "vue-router";
 
-import Toolbar from "./Toolbar.vue";
+// import Toolbar from "./Toolbar.vue";
 </script>
 
 <style scoped>
