@@ -46,8 +46,34 @@ const routers = createRouter({
           name: "PDF",
           meta: { transition: "slide-left", title: "PDF预览" },
           component: () => import("../pages/common/PDFView.vue"),
-        }
-      ]
+        },
+      ],
+    },
+    {
+      path: "/account",
+      name: "Account",
+      meta: { transition: "slide-left", title: "账号", keep: true },
+      component: () => import("../components/PageView.vue"),
+      children: [
+        {
+          path: "",
+          name: "Info",
+          meta: { transition: "slide-left", title: "账号中心" },
+          component: () => import("../pages/common/PDFView.vue"),
+        },
+        {
+          path: "info",
+          name: "UserInfo",
+          meta: { transition: "slide-left", title: "个人信息" },
+          component: () => import("../pages/common/PDFView.vue"),
+        },
+        {
+          path: "reset",
+          name: "AccountReset",
+          meta: { transition: "slide-left", title: "账号重置" },
+          component: () => import("../pages/common/PDFView.vue"),
+        },
+      ],
     },
     {
       path: "/test",
