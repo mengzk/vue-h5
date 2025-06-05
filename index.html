@@ -17,7 +17,15 @@
 
     <script>
       window.onerror = function(message, source, lineno, colno, error) {
-        console.warn('------ window onerror:', message, 'Source:', source, 'Line:', lineno, 'Column:', colno, 'Stack trace:', error.stack);
+        // console.warn('--- window onerror:', message, 'Source:', source, 'Line:', lineno, 'Column:', colno, 'Stack trace:', error.stack);
+        const key3 = 'app-error' + Math.floor(Math.random() * 100);
+        const errorInfo = {
+          message: message,
+          source: source,
+          lineno: lineno,
+          colno: colno,
+          stack: error ? error.stack : 'No stack trace available',
+        };
       };
       // function setH5Auth(info) { window.localStorage.setItem('app-user', info); }
     </script>

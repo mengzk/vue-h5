@@ -59,8 +59,8 @@ export function hasCoupon(code) {
 
 /**
  * 验证邮箱
- * @param {*} email 
- * @returns 
+ * @param {*} email
+ * @returns
  */
 export function checkEmail(email) {
   const res = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
@@ -74,34 +74,33 @@ export function formatNumber(num) {
 
 /**
  * 获取url参数
- * @param {*} url 
+ * @param {*} url
  */
 export function getUrlParams(url) {
   let str = url || window.location.href;
-  if(str.indexOf("#") > 0) {
+  if (str.indexOf("#") > 0) {
     str = str.split("#")[1];
   }
 
-  const query = str.split('?')[1];
+  const query = str.split("?")[1];
   if (!query) {
     return {};
   }
-  const search = query.split('&');
+  const search = query.split("&");
   const params = {};
-  search.forEach(item => {
-    const arr = item.split('=');
+  search.forEach((item) => {
+    const arr = item.split("=");
     params[arr[0]] = arr[1];
   });
   return params;
 }
 
-
 //
-export function splitText(text='') {
+export function splitText(text = "") {
   let list = [];
-  if (text.includes('\n')) {
+  if (text.includes("\n")) {
     list = text.split("\n");
-  } else if (text.includes('&&')) {
+  } else if (text.includes("&&")) {
     list = text.split("&&");
   } else {
     list = [text];
@@ -111,7 +110,7 @@ export function splitText(text='') {
 
 /**
  * 更新url参数
- * @param {*} params 
+ * @param {*} params
  */
 export function updateHrefParams(params) {
   const url = window.location.href;
@@ -157,4 +156,13 @@ export function replaceNumber2(e, flag) {
     e = e.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
     return e.replace(/^(\\-)*(\d+)\.(\d\d).*$/, "$1$2.$3");
   }
+}
+
+/**
+ * 获取cookie
+ * @param {*} name
+ */
+export function getCookies(name) {
+  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  return match ? match[2] : "";
 }
