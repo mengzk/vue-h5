@@ -82,7 +82,7 @@ const routers = createRouter({
       component: () => import("../pages/warn/TestView.vue"),
     },
     {
-      path: "/*",
+      path: "/404",
       name: "NotFound",
       meta: { title: "404", hidden: true },
       component: () => import("../pages/warn/Notfound.vue"),

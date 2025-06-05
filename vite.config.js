@@ -12,8 +12,6 @@ import vue from "@vitejs/plugin-vue";
 // import vueJsx from "@vitejs/plugin-vue-jsx";
 import legacy from "@vitejs/plugin-legacy";
 
-import pxToRem from "./pxtorem.config";
-
 const isDev = process.env.NODE_ENV !== "production";
 
 export default defineConfig({
@@ -33,7 +31,7 @@ export default defineConfig({
   },
   css: {
     postcss: {
-      plugins: [pxToRem],
+      plugins: [],
     },
   },
   server: {
