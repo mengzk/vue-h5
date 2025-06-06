@@ -10,6 +10,9 @@ import {
   createWebHistory,
 } from "vue-router";
 
+import Container from "@/components/Container.vue";
+// import Outline from "@/components/Outline.vue";
+
 // 创建路由
 const routers = createRouter({
   strict: true,
@@ -24,16 +27,58 @@ const routers = createRouter({
       component: () => import("../pages/main/HomeView.vue"),
     },
     {
-      path: "/alert",
-      name: "Alert",
-      meta: { transition: "slide-left", title: "风险" },
-      component: () => import("../pages/main/AlertView.vue"),
+      path: "/home",
+      name: "Home",
+      meta: { transition: "slide-left", title: "产品" },
+      component: Container,
+      children: [
+        {
+          path: "",
+          name: "Workbench",
+          meta: { transition: "slide-left", title: "工作台" },
+          component: () => import("../pages/workbench/Index.vue"),
+        }
+      ]
     },
     {
-      path: "/chat",
-      name: "Chat",
-      meta: { transition: "slide-left", title: "AI健康" },
-      component: () => import("../pages/chat/ChatPage.vue"),
+      path: "/product",
+      name: "Product",
+      meta: { transition: "slide-left", title: "产品" },
+      component: Container,
+      children: [
+        {
+          path: "",
+          name: "ProductList",
+          meta: { transition: "slide-left", title: "产品列表" },
+          component: () => import("../pages/product/List.vue"),
+        },
+        {
+          path: "detail",
+          name: "ProductDetail",
+          meta: { transition: "slide-left", title: "产品详情" },
+          component: () => import("../pages/product/Detail.vue"),
+        }
+      ]
+    },
+    {
+      path: "/member",
+      name: "Member",
+      meta: { transition: "slide-left", title: "会员" },
+      component: Container,
+      children: [
+        {
+          path: "",
+          name: "MemberList",
+          meta: { transition: "slide-left", title: "会员列表" },
+          component: () => import("../pages/member/List.vue"),
+        },
+        {
+          path: "detail",
+          name: "MemberDetail",
+          meta: { transition: "slide-left", title: "会员详情" },
+          component: () => import("../pages/member/Detail.vue"),
+        }
+      ]
     },
     {
       path: "/preivew",
@@ -53,25 +98,19 @@ const routers = createRouter({
       path: "/account",
       name: "Account",
       meta: { transition: "slide-left", title: "账号", keep: true },
-      component: () => import("../components/PageView.vue"),
+      component: () => import("../components/Outline.vue"),
       children: [
         {
           path: "",
-          name: "Info",
+          name: "AccountInfo",
           meta: { transition: "slide-left", title: "账号中心" },
-          component: () => import("../pages/common/PDFView.vue"),
-        },
-        {
-          path: "info",
-          name: "UserInfo",
-          meta: { transition: "slide-left", title: "个人信息" },
-          component: () => import("../pages/common/PDFView.vue"),
+          component: () => import("../pages/account/Info.vue"),
         },
         {
           path: "reset",
           name: "AccountReset",
           meta: { transition: "slide-left", title: "账号重置" },
-          component: () => import("../pages/common/PDFView.vue"),
+          component: () => import("../pages/account/Reset.vue"),
         },
       ],
     },
