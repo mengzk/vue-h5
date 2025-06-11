@@ -22,7 +22,7 @@ const inited = ref(false);
 onMounted(() => {
   const res = getUrlParams();
   console.log("---> query", res);
-
+  // 初始化-信息
   const timer = setTimeout(() => {
     inited.value = true;
     clearTimeout(timer);
