@@ -45,7 +45,7 @@
     transparent calc(100% - 12px),
     black 100%
   );
-  animation: spin 2s linear infinite;
+  animation: spin 3s linear infinite;
 }
 .app-loading .loading-spinner2 {
   width: 100px;
@@ -56,7 +56,7 @@
   border-right: 10px solid #4caf50; /* 右侧边框颜色 */
   border-bottom: 10px solid #ff6600; /* 底部边框颜色 */
   border-left: 10px solid #f44336; /* 左侧边框颜色 */
-  animation: spin 2s linear infinite; /* 旋转动画 */
+  animation: spin 3s linear infinite; /* 旋转动画 */
 }
 @keyframes spin {
   0% {
