@@ -1,6 +1,29 @@
 <template>
   <div class="container">
-    <Header />
+    <div class="menu-box">
+      <el-menu
+        :default-active="curMenu"
+        @open="onHandleOpen"
+        @close="onHandleClose">
+        <template v-for="menu in menuList" :key="menu.name">
+          <el-sub-menu v-if="hasChildren(menu)" :index="menu.name">
+            <template #title>
+              <span>{{ menu.title }}</span>
+            </template>
+            <template v-for="child in menu.children" :key="child.name">
+              <el-menu-item :index="child.name" @click="onMenuClick(child)">
+                {{ child.title }}
+              </el-menu-item>
+            </template>
+          </el-sub-menu>
+          <el-menu-item v-else :index="menu.name" @click="onMenuClick(menu)">
+            <span>{{ menu.title }}</span>
+          </el-menu-item>
+        </template>
+      </el-menu>
+    </div>
+
+    <!-- <Header /> -->
     <!-- 路由动画 -->
     <RouterView v-slot="{ Component, route }">
       <Transition name="slide-right" mode="out-in" appear>
@@ -17,9 +40,48 @@
 </template>
 
 <script setup>
-import { RouterView } from "vue-router";
+import { onMounted, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 
-import Header from "./Header.vue";
+import { getUrlParams } from "@/utils";
+import useMenuConfig from "@/stores/menu";
+// import Header from "./Header.vue";
+
+const keepAliveExclude = ["Login", "Register", "ResetPassword", "NotFound"];
+
+const curMenu = ref("");
+const menuList = ref([]);
+const router = useRouter();
+const menuConfig = useMenuConfig();
+
+watch(
+  () => menuConfig.menuList,
+  (newList) => {
+    menuList.value = newList;
+    curMenu.value = menuConfig.getCurMenu();
+  },
+  { immediate: true }
+);
+
+//
+function onHandleOpen(key) {
+  console.log("Menu opened", key);
+}
+//
+function onHandleClose(key) {
+  console.log("Menu closed", key);
+}
+
+// 是否有子菜单
+function hasChildren(menu) {
+  return menu.children && menu.children.length > 1;
+}
+
+// 菜单点击事件
+function onMenuClick(menu) {
+  // console.log("Menu clicked:", menu);
+  router.push({ path: menu.path });
+}
 </script>
 
 <style scoped>
@@ -27,9 +89,13 @@ import Header from "./Header.vue";
   width: 100vw;
   min-height: 100vh;
   display: flex;
+  flex-direction: row;
+}
+.menu-box {
+  width: 300px;
+  display: flex;
   flex-direction: column;
 }
-
 .content {
   flex: 1;
   /* overflow-y: scroll; */

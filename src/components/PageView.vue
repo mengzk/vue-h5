@@ -6,7 +6,6 @@
       </KeepAlive>
       <component v-if="!route.meta.keep" :is="Component" />
     </router-view> -->
-
     <!-- 路由动画 -->
     <RouterView v-slot="{ Component, route }">
       <Transition name="slide-right" mode="out-in" appear>

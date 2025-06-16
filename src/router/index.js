@@ -10,8 +10,10 @@ import {
   createWebHistory,
 } from "vue-router";
 
-import Container from "@/components/Container.vue";
-// import Outline from "@/components/Outline.vue";
+// import Container from "@/components/Container.vue"
+// 引入菜单路由
+import menuRouter from "./menu.js";
+let initMenu = false; // 是否初始化菜单路由
 
 // 创建路由
 const routers = createRouter({
@@ -22,63 +24,9 @@ const routers = createRouter({
     {
       path: "/",
       name: "Main",
-      // redirect: "/",
+      redirect: "/home",
       meta: { title: "首页", keep: true },
       component: () => import("../pages/main/HomeView.vue"),
-    },
-    {
-      path: "/home",
-      name: "Home",
-      meta: { transition: "slide-left", title: "产品" },
-      component: Container,
-      children: [
-        {
-          path: "",
-          name: "Workbench",
-          meta: { transition: "slide-left", title: "工作台" },
-          component: () => import("../pages/workbench/Index.vue"),
-        }
-      ]
-    },
-    {
-      path: "/product",
-      name: "Product",
-      meta: { transition: "slide-left", title: "产品" },
-      component: Container,
-      children: [
-        {
-          path: "",
-          name: "ProductList",
-          meta: { transition: "slide-left", title: "产品列表" },
-          component: () => import("../pages/product/List.vue"),
-        },
-        {
-          path: "detail",
-          name: "ProductDetail",
-          meta: { transition: "slide-left", title: "产品详情" },
-          component: () => import("../pages/product/Detail.vue"),
-        }
-      ]
-    },
-    {
-      path: "/member",
-      name: "Member",
-      meta: { transition: "slide-left", title: "会员" },
-      component: Container,
-      children: [
-        {
-          path: "",
-          name: "MemberList",
-          meta: { transition: "slide-left", title: "会员列表" },
-          component: () => import("../pages/member/List.vue"),
-        },
-        {
-          path: "detail",
-          name: "MemberDetail",
-          meta: { transition: "slide-left", title: "会员详情" },
-          component: () => import("../pages/member/Detail.vue"),
-        }
-      ]
     },
     {
       path: "/preivew",
@@ -144,8 +92,20 @@ export function resetRouter() {
 }
 
 // 全局前置守卫
-routers.beforeEach((to, from, next) => {
-  console.log("路由变化", to.path, from.path);
+routers.beforeEach(async (to, from, next) => {
+  console.log("---> guard ", to.path, from.path);
+
+  // 如果是第一次访问菜单路由，则初始化菜单
+  if (!initMenu && menuRouter && menuRouter.length > 0) {
+    initMenu = true;
+    // 添加菜单路由
+    menuRouter.forEach((route) => {
+      routers.addRoute(route);
+    });
+
+    next({ ...to, replace: true }); // 重新导航到当前路由
+    return;
+  }
 
   const list = routers.getRoutes();
   if (list.length > 0) {

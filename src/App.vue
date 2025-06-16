@@ -1,10 +1,5 @@
 <template>
-  <router-view v-if="inited" v-slot="{ Component, route }">
-    <keep-alive>
-      <component v-if="route.meta.keep" :is="Component" />
-    </keep-alive>
-    <component v-if="!route.meta.keep" :is="Component" />
-  </router-view>
+  <router-view v-if="inited"> </router-view>
   <div class="loading" v-else>
     <div class="loading-view"></div>
   </div>
@@ -14,6 +9,9 @@
 import { onMounted, ref } from "vue";
 // import { useRouter } from "vue-router";
 import { getUrlParams } from "@/utils";
+import useMenuConfig from "@/stores/menu";
+// 引入菜单路由
+import menuRouter from "@/router/menu";
 
 // const router = useRouter();
 const inited = ref(false);
@@ -21,12 +19,28 @@ const inited = ref(false);
 // 初始化账号信息
 onMounted(() => {
   const res = getUrlParams();
+  const href = window.location.href;
+  let curPath = href.split("#")[1];
+  if (curPath) {
+    curPath = curPath.split("?")[0];
+  } else {
+    curPath = "/";
+  }
+  // console.log("---> href", curPath);
   console.log("---> query", res);
+
   // 初始化-信息
   const timer = setTimeout(() => {
+
+    // 解析菜单路由
+    const menuConfig = useMenuConfig();
+    const list = menuConfig.getMenuFormRouter(menuRouter);
+    menuConfig.setCurMenu(curPath);
+    menuConfig.setMenu(list);
+
     inited.value = true;
     clearTimeout(timer);
-  }, 1500);
+  }, 1000);
 });
 </script>
 

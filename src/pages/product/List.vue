@@ -4,9 +4,6 @@
       <h1>Product List</h1>
       <p>This is the member list page.</p>
     </div>
-    <div class="home">
-      <h1>Product List</h1>
-    </div>
   </div>
 </template>
 

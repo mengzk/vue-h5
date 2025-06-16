@@ -3,12 +3,6 @@
     <div class="home">
       <h1>Member List</h1>
       <p>This is the member list page.</p>
-      <button @click="router.push('/member/detail')">Go to Member Detail</button>
-    </div>
-    <div class="home">
-      <h1>Account List</h1>
-      <p>This is the account list page.</p>
-      <button @click="router.push('/account/detail')">Go to Account Detail</button>
     </div>
   </div>
 </template>
