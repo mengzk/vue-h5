@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="menu-box">
+  <div class="c-container">
+    <div class="c-menu-box">
       <el-menu
         :default-active="curMenu"
         @open="onHandleOpen"
@@ -85,19 +85,15 @@ function onMenuClick(menu) {
 </script>
 
 <style scoped>
-.container {
+.c-container {
   width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
 }
-.menu-box {
+.c-menu-box {
   width: 300px;
   display: flex;
   flex-direction: column;
-}
-.content {
-  flex: 1;
-  /* overflow-y: scroll; */
 }
 </style>

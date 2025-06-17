@@ -76,6 +76,26 @@ const menuRouter = [
       },
     ],
   },
+  {
+    path: "/category",
+    name: "Category",
+    meta: { transition: "slide-left", title: "品类" },
+    component: Container,
+    children: [
+      {
+        path: "",
+        name: "CategoryList",
+        meta: { transition: "slide-left", title: "品类列表" },
+        component: () => import("../pages/category/List.vue"),
+      },
+      {
+        path: "detail",
+        name: "CategoryDetail",
+        meta: { transition: "slide-left", title: "品类详情" },
+        component: () => import("../pages/category/Detail.vue"),
+      },
+    ],
+  },
 ];
 
 export default menuRouter;
