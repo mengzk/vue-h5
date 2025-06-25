@@ -21,14 +21,18 @@
         </el-form-item>
         <el-row class="form-check" part="remember">
           <el-checkbox v-model="form.remember">记住我</el-checkbox>
-          <el-link class="forget">忘记密码？</el-link>
+          <span class="forget" @click="onForget">忘记密码？</span>
         </el-row>
-        <el-row>
+        <!-- <el-row>
           <el-button type="text">扫码登录</el-button>
-        </el-row>
-        <el-row>
-          <el-button class="btn1" type="primary">登 录</el-button>
-          <el-button class="btn1" type="primary">注 册</el-button>
+        </el-row> -->
+        <el-row class="btn-group">
+          <el-button class="btn1" type="primary" @click="onLogin"
+            >登 录</el-button
+          >
+          <el-button class="btn1" type="primary" @click="onRegister"
+            >注 册</el-button
+          >
         </el-row>
       </el-form>
     </div>
@@ -39,9 +43,13 @@
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
+import { useUserStore } from "@/stores/user";
+
 const router = useRouter();
 
-const bgUrl = ref("");
+const bgUrl = ref(
+  "https://ts1.tc.mm.bing.net/th?id=OHR.WinterBegins_ZH-CN7638411804_1920x1080.webp"
+);
 const formRef = ref(null);
 const form = ref({
   account: "",
@@ -70,6 +78,21 @@ const rules = ref({
 });
 
 onMounted(() => {});
+
+function onLogin() {
+  formRef.value.validate((valid) => {
+    if (valid) {
+    }
+  });
+}
+
+function onRegister() {
+  // router.push("/register");
+}
+
+function onForget() {
+  // router.push("/forget-password");
+}
 </script>
 
 <style scoped>
@@ -113,9 +136,12 @@ onMounted(() => {});
 }
 .form-check {
   width: 360px;
-  margin-top: 8px;
+  margin-top: 12px;
   display: flex;
   justify-content: space-between;
+}
+.btn-group {
+  margin-top: 36px;
 }
 .btn1 {
   flex: 1;
