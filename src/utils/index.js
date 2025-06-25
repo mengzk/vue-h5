@@ -95,19 +95,6 @@ export function getUrlParams(url) {
   return params;
 }
 
-//
-export function splitText(text = "") {
-  let list = [];
-  if (text.includes("\n")) {
-    list = text.split("\n");
-  } else if (text.includes("&&")) {
-    list = text.split("&&");
-  } else {
-    list = [text];
-  }
-  return list;
-}
-
 /**
  * 更新url参数
  * @param {*} params
