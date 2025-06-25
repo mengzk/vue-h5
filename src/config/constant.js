@@ -7,42 +7,32 @@
  */
 
 const Constants = {
-  env: process.env.NODE_ENV,
-  inApp: false,
-  isIOS: false,
-  platform: 'web',
-  version: '1.0.0',
-  secret: '',
-  appId: '',
-  token: '',
-  userId: '',
-  userName: '',
-  userPhone: '',
+  platform: "web",
+  version: "1.0.0",
+  secret: "",
+  appId: "",
+  token: "test token",
+  userId: "",
+  userName: "",
+  userPhone: "",
   userInfo: {},
-  
-  FZHS: 'FZHSJW--',
 
   screen: {
     width: window.innerWidth,
     height: window.innerHeight,
-    scale: window.devicePixelRatio,
-    statusHeight: getProperty('--status-bar-height')
+    statusHeight: getProperty("--status-bar-height"),
   },
-  safe: {
-    top: getProperty('--safe-area-inset-top'),
-    right: getProperty('--safe-area-inset-right'),
-    bottom: getProperty('--safe-area-inset-bottom'),
-    left: getProperty('--safe-area-inset-left'),
-  }
 };
 
 // 获取css变量值
-function getProperty(propertyKey='') {
-  const num = getComputedStyle(document.documentElement).getPropertyValue(propertyKey)||'0'
+function getProperty(propertyKey = "") {
+  const num =
+    getComputedStyle(document.documentElement).getPropertyValue(propertyKey) ||
+    "0";
   return parseInt(num);
 }
 // 设置css变量值
-function setProperty(propertyKey='', value='') {
+function setProperty(propertyKey = "", value = "") {
   document.documentElement.style.setProperty(propertyKey, value);
 }
 

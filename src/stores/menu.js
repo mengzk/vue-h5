@@ -7,25 +7,42 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
-const useMenuConfig = defineStore("app-menu", () => {
-  const curMenu = ref(""); // 当前菜单
-  const menuList = ref({});
+import menuRouter from "@/router/menu"; // 导入解析路由的函数
 
-  function getMenuFormRouter(list) {
-    return parseRouter(list);
+let isLoaded = false; // 是否已加载过菜单
+const useMenuStore = defineStore("app-menu", () => {
+  const curMenu = ref(""); // 当前菜单
+  const menuList = ref([]);
+
+  /**
+   * 查询菜单
+   */
+  async function queryMenu() {
+    if(isLoaded) {
+      return menuList.value; // 如果菜单已加载，直接返回
+    }
+    isLoaded = true; // 标记菜单已加载
+    // 获取路由列表
+
+    setMenu(parseRouter(menuRouter));
+    return menuRouter;
   }
+
+  // function getMenuFormRouter(list) {
+  //   return parseRouter(list);
+  // }
 
   function setMenu(res) {
     menuList.value = res;
   }
-  function getMenu() {
-    return menuList.value;
-  }
+  // function getMenu() {
+  //   return menuList.value;
+  // }
   function hasMenu() {
     return Object.keys(menuList.value).length > 0;
   }
   function clearMenu() {
-    menuList.value = {};
+    menuList.value = [];
   }
 
   // 设置当前菜单
@@ -43,7 +60,7 @@ const useMenuConfig = defineStore("app-menu", () => {
         if (menu.path == curPath) {
           if (children.length > 0) {
             curName = children[0].name; // 默认选中第一个子菜单
-          }else {
+          } else {
             curName = menu.name;
           }
         } else if (children.length > 1) {
@@ -60,12 +77,11 @@ const useMenuConfig = defineStore("app-menu", () => {
   return {
     menuList,
     setMenu,
-    getMenu,
+    queryMenu,
     hasMenu,
     clearMenu,
     setCurMenu,
     getCurMenu,
-    getMenuFormRouter,
   };
 });
 
@@ -81,7 +97,7 @@ function parseRouter(list, path) {
         name: item.name,
         children,
       });
-    } else  {
+    } else {
       const meta = item.meta || {};
       if (meta.hidden) {
         return; // 如果菜单被隐藏，则不添加到菜单列表
@@ -100,4 +116,4 @@ function parseRouter(list, path) {
   return menu;
 }
 
-export default useMenuConfig;
+export default useMenuStore;

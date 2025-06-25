@@ -1,5 +1,9 @@
 <template>
-  <div class="page"></div>
+  <div class="page login">
+    <div class="login">
+      <h1>登录</h1>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -12,7 +16,7 @@ onMounted(() => {});
 </script>
 
 <style scoped>
-.home {
+.login {
   height: 100vh;
   display: flex;
   flex-direction: column;

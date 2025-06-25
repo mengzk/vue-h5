@@ -10,7 +10,6 @@ const Configs = {
   domain: "api",
   refresh: false,
   printLog: false,
-  time: Date.now(),
 }
 
 export default Configs;

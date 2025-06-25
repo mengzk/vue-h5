@@ -4,7 +4,8 @@
       <el-menu
         :default-active="curMenu"
         @open="onHandleOpen"
-        @close="onHandleClose">
+        @close="onHandleClose"
+      >
         <template v-for="menu in menuList" :key="menu.name">
           <el-sub-menu v-if="hasChildren(menu)" :index="menu.name">
             <template #title>
@@ -40,11 +41,11 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
-import { getUrlParams } from "@/utils";
-import useMenuConfig from "@/stores/menu";
+// import { getUrlParams } from "@/utils";
+import useMenuStore from "@/stores/menu";
 // import Header from "./Header.vue";
 
 const keepAliveExclude = ["Login", "Register", "ResetPassword", "NotFound"];
@@ -52,7 +53,7 @@ const keepAliveExclude = ["Login", "Register", "ResetPassword", "NotFound"];
 const curMenu = ref("");
 const menuList = ref([]);
 const router = useRouter();
-const menuConfig = useMenuConfig();
+const menuConfig = useMenuStore();
 
 watch(
   () => menuConfig.menuList,

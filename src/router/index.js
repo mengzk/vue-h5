@@ -7,14 +7,15 @@
 import {
   createRouter,
   createWebHashHistory,
-  createWebHistory,
+  // createWebHistory,
 } from "vue-router";
 
 // import Container from "@/components/Container.vue"
-// 引入菜单路由
-import menuRouter from "./menu.js";
-let initMenu = false; // 是否初始化菜单路由
+import useMenuStore from "@/stores/menu";
+import Constants from "@/config/constant";
+// import menuRouter from "./menu.js";
 
+let initMenu = false; // 是否初始化菜单路由
 // 创建路由
 const routers = createRouter({
   strict: true,
@@ -27,6 +28,12 @@ const routers = createRouter({
       redirect: "/home",
       meta: { title: "首页", keep: true },
       component: () => import("../pages/main/HomeView.vue"),
+    },
+    {
+      path: "/login",
+      name: "Login",
+      meta: { title: "Login" },
+      component: () => import("../pages/account/Login.vue"),
     },
     {
       path: "/preivew",
@@ -69,6 +76,12 @@ const routers = createRouter({
       component: () => import("../pages/warn/TestView.vue"),
     },
     {
+      path: "/denied",
+      name: "Denied",
+      meta: { title: "拒绝访问", hidden: true },
+      component: () => import("../pages/warn/Denied.vue"),
+    },
+    {
       path: "/404",
       name: "NotFound",
       meta: { title: "404", hidden: true },
@@ -76,6 +89,17 @@ const routers = createRouter({
     },
   ],
 });
+
+function hasRoute(path) {
+  const list = routers.getRoutes();
+  if (list.length > 0) {
+    // 遍历路由列表，检查是否存在当前路由
+    // const exist =
+    return list.some((route) => route.path === path);
+  } else {
+    return false;
+  }
+}
 
 /**
  * 重置路由
@@ -95,28 +119,44 @@ export function resetRouter() {
 routers.beforeEach(async (to, from, next) => {
   console.log("---> guard ", to.path, from.path);
 
+  let isExist = hasRoute(to.path);
+
+  // 如果是登录页面，则直接放行
+  if (to.name === "Login") {
+    return next();
+  } else if (!Constants.token) {
+    // 如果没有登录信息，则跳转到登录页面
+    return next({ name: "Login" });
+  }
+
   // 如果是第一次访问菜单路由，则初始化菜单
-  if (!initMenu && menuRouter && menuRouter.length > 0) {
+  if (!isExist && !initMenu) {
+    const menuStore = useMenuStore();
+    const menus = await menuStore.queryMenu(); // 查询菜单
+    if (!menus || menus.length === 0) {
+      console.warn("菜单路由为空，请检查菜单配置");
+      return next({ name: "Denied" });
+    }
+
     initMenu = true;
+    console.log("---> 菜单路由：", menus);
+
     // 添加菜单路由
-    menuRouter.forEach((route) => {
+    menus.forEach((route) => {
       routers.addRoute(route);
     });
 
     next({ ...to, replace: true }); // 重新导航到当前路由
     return;
-  }
+  } else {
+    isExist = hasRoute(to.path);
 
-  const list = routers.getRoutes();
-  if (list.length > 0) {
-    // 遍历路由列表，检查是否存在当前路由
-    const exists = list.some((route) => route.path === to.path);
-    if (!exists) {
+    if (!isExist) {
       console.warn(`路由 ${to.path} 不存在`);
       return next({ name: "NotFound" });
     }
+    next();
   }
-  next();
 });
 
 export default routers;

@@ -8,16 +8,15 @@
 <script setup>
 import { onMounted, ref } from "vue";
 // import { useRouter } from "vue-router";
-import { getUrlParams } from "@/utils";
-import useMenuConfig from "@/stores/menu";
 // 引入菜单路由
-import menuRouter from "@/router/menu";
+import { getUrlParams } from "@/utils";
+import { launchApp } from "@/utils/launch";
 
 // const router = useRouter();
 const inited = ref(false);
 
 // 初始化账号信息
-onMounted(() => {
+onMounted(async () => {
   const res = getUrlParams();
   const href = window.location.href;
   let curPath = href.split("#")[1];
@@ -31,16 +30,12 @@ onMounted(() => {
 
   // 初始化-信息
   const timer = setTimeout(() => {
-
-    // 解析菜单路由
-    const menuConfig = useMenuConfig();
-    const list = menuConfig.getMenuFormRouter(menuRouter);
-    menuConfig.setCurMenu(curPath);
-    menuConfig.setMenu(list);
-
     inited.value = true;
     clearTimeout(timer);
   }, 1000);
+
+  // 启动应用
+  await launchApp();
 });
 </script>
 
