@@ -8,14 +8,15 @@
 <script setup>
 import { onMounted, ref } from "vue";
 // import { useRouter } from "vue-router";
-// 引入菜单路由
 import { getUrlParams } from "@/utils";
 import { launchApp } from "@/utils/launch";
+
+import useMenuStore from "@/stores/menu";
 
 // const router = useRouter();
 const inited = ref(false);
 
-// 初始化账号信息
+// 初始化
 onMounted(async () => {
   const res = getUrlParams();
   const href = window.location.href;
@@ -23,8 +24,13 @@ onMounted(async () => {
   if (curPath) {
     curPath = curPath.split("?")[0];
   } else {
-    curPath = "/";
+    curPath = "";
   }
+
+  if(curPath) {
+    useMenuStore().setCurMenu(curPath);
+  }
+
   // console.log("---> href", curPath);
   console.log("---> query", res);
 
