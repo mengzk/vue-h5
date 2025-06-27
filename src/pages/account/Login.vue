@@ -5,19 +5,10 @@
       <h1>登录</h1>
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item class="form-item" label="用户名" prop="account">
-          <el-input
-            class="input"
-            v-model="form.account"
-            placeholder="请输入用户名"
-          />
+          <el-input class="input" v-model="form.account" placeholder="请输入用户名" />
         </el-form-item>
         <el-form-item class="form-item" label="密码" prop="password">
-          <el-input
-            class="input"
-            type="password"
-            v-model="form.password"
-            placeholder="请输入密码"
-          />
+          <el-input class="input" type="password" v-model="form.password" placeholder="请输入密码" />
         </el-form-item>
         <el-row class="form-check" part="remember">
           <el-checkbox v-model="form.remember">记住我</el-checkbox>
@@ -27,12 +18,8 @@
           <el-button type="text">扫码登录</el-button>
         </el-row> -->
         <el-row class="btn-group">
-          <el-button class="btn1" type="primary" @click="onLogin"
-            >登 录</el-button
-          >
-          <el-button class="btn1" type="primary" @click="onRegister"
-            >注 册</el-button
-          >
+          <el-button class="btn1" type="primary" @click="onLogin">登 录</el-button>
+          <el-button class="btn1" type="primary" @click="onRegister">注 册</el-button>
         </el-row>
       </el-form>
     </div>
@@ -46,6 +33,7 @@ import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
+const userStore = useUserStore();
 
 const bgUrl = ref(
   "https://ts1.tc.mm.bing.net/th?id=OHR.WinterBegins_ZH-CN7638411804_1920x1080.webp"
@@ -77,11 +65,17 @@ const rules = ref({
   ],
 });
 
-onMounted(() => {});
+onMounted(() => { });
 
 function onLogin() {
   formRef.value.validate((valid) => {
     if (valid) {
+      const params = form.value;
+      userStore.onLogin(params).then((res) => {
+        router.push("/");
+      });
+    } else {
+      console.log("表单验证失败");
     }
   });
 }
@@ -91,7 +85,7 @@ function onRegister() {
 }
 
 function onForget() {
-  // router.push("/forget-password");
+  // router.push("/forget");
 }
 </script>
 
@@ -104,6 +98,7 @@ function onForget() {
   position: relative;
   background-color: #f6f6f6;
 }
+
 .bg {
   width: 100vw;
   height: 100vh;
@@ -112,6 +107,7 @@ function onForget() {
   object-fit: cover;
   position: absolute;
 }
+
 .content {
   width: 450px;
   height: 600px;
@@ -125,24 +121,29 @@ function onForget() {
   justify-content: center;
   background-color: white;
 }
+
 .form-item {
   width: 360px;
   margin-top: 24px;
 }
+
 .input {
   width: 360px;
   height: 40px;
   border-radius: 4px;
 }
+
 .form-check {
   width: 360px;
   margin-top: 12px;
   display: flex;
   justify-content: space-between;
 }
+
 .btn-group {
   margin-top: 36px;
 }
+
 .btn1 {
   flex: 1;
   height: 40px;

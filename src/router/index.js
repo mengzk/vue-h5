@@ -36,18 +36,16 @@ const routers = createRouter({
       component: () => import("../pages/account/Login.vue"),
     },
     {
-      path: "/preivew",
-      name: "Preview",
-      meta: { transition: "slide-left", title: "文件预览" },
-      component: () => import("../pages/common/Preview.vue"),
-      children: [
-        {
-          path: "pdf",
-          name: "PDF",
-          meta: { transition: "slide-left", title: "PDF预览" },
-          component: () => import("../pages/common/PDFView.vue"),
-        },
-      ],
+      path: "/forget",
+      name: "Forget",
+      meta: { title: "Forget" },
+      component: () => import("../pages/account/Forget.vue"),
+    },
+    {
+      path: "/reset",
+      name: "Reset",
+      meta: { title: "Reset" },
+      component: () => import("../pages/account/Reset.vue"),
     },
     {
       path: "/account",

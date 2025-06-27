@@ -72,5 +72,7 @@ export const useUserStore = defineStore("userinfo", () => {
     clearInfo,
     isLogin,
     getToken,
+    onLogin,
+    onLogout,
   };
 });
