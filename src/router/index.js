@@ -48,6 +48,12 @@ const routers = createRouter({
       component: () => import("../pages/account/Reset.vue"),
     },
     {
+      path: "/board",
+      name: "Board",
+      meta: { title: "Board" },
+      component: () => import("../pages/Board.vue"),
+    },
+    {
       path: "/account",
       name: "Account",
       meta: { transition: "slide-left", title: "账号", keep: true },
