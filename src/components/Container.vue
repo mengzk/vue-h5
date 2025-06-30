@@ -6,16 +6,16 @@
         <template v-for="menu in menuList" :key="menu.name">
           <el-sub-menu v-if="hasChildren(menu)" :index="menu.name">
             <template #title>
-              <span>{{ menu.title }}</span>
+              <span class="rc-menu-text">{{ menu.title }}</span>
             </template>
             <template v-for="child in menu.children" :key="child.name">
               <el-menu-item :index="child.name" @click="onMenuClick(child)">
-                <span>{{ child.title }}</span>
+                <span class="rc-menu-text2">{{ child.title }}</span>
               </el-menu-item>
             </template>
           </el-sub-menu>
           <el-menu-item v-else :index="menu.name" @click="onMenuClick(menu)">
-            <span>{{ menu.title }}</span>
+            <span class="rc-menu-text">{{ menu.title }}</span>
           </el-menu-item>
         </template>
       </el-menu>
@@ -97,6 +97,12 @@ function onMenuClick(menu) {
   display: flex;
   flex-direction: column;
   background-color: white;
+}
+.rc-menu-text {
+  font-size: 18px;
+}
+.rc-menu-text2 {
+  font-size: 17px;
 }
 .rc-layout {
   flex: 1;
