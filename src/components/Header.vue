@@ -1,12 +1,37 @@
 <template>
-  <div class="v-toolbar">
-    <div class="v-toolbar-action" @click="onBack">
-      <img class="v-toolbar-back" :src="backIc" />
-    </div>
-    <span class="v-toolbar-title">{{ props.title }}</span>
-    <div class="v-toolbar-action v-toolbar-action2">
-      <slot name="action"></slot>
-    </div>
+  <div class="v-header">
+    <img class="v-header-logo" src="@/assets/logo.svg" />
+    <span class="v-header-title">{{ props.title }}</span>
+
+    <el-popover placement="bottom-end" width="200px" :offset="8" trigger="click" :show-arrow="false">
+      <template #reference>
+        <img class="v-header-icon" src="@/assets/notify.png" />
+      </template>
+      <template #default>
+        <div>
+          <h1>精神的风景</h1>
+          <h1>精神的风景</h1>
+          <h1>精神的风景</h1>
+          <h1>精神的风景</h1>
+        </div>
+      </template>
+    </el-popover>
+
+    <el-popover placement="bottom-end" :hide-after="0" :offset="8" trigger="hover" :show-arrow="false">
+      <template #reference>
+        <div class="v-header-user">
+          <img class="v-header-user-icon" :src="userIc" />
+        </div>
+      </template>
+      <template #default>
+        <div>
+          <h3>管理员</h3>
+          <p>个人中心</p>
+          <p>账号设置</p>
+          <p>退出登录</p>
+        </div>
+      </template>
+    </el-popover>
   </div>
 </template>
 
@@ -15,7 +40,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
-import backIc from '@/assets/arrow.png';
+import userIc from '../assets/header.png';
 
 const props = defineProps({
   title: {
@@ -38,7 +63,7 @@ watch(() => props.title, (value) => {
 });
 
 onMounted(() => {
-  titleStr.value =  props.title || '';
+  titleStr.value = props.title || '';
 });
 
 // watch(route, (newRoute, oldRoute) => {
@@ -47,52 +72,62 @@ onMounted(() => {
 // });
 
 function onBack() {
-  if(props.onBack) {
+  if (props.onBack) {
     props.onBack();
-  }else {
+  } else {
     router.back();
   }
 }
 </script>
 
 <style scoped>
-.v-toolbar {
+.v-header {
   width: 100vw;
-  height: 56px;
+  height: var(--header-height);
   top: 0;
   left: 0;
   z-index: 3;
   position: sticky;
   display: flex;
   align-items: center;
-  background-color: var(--bg-color);
+  background-color: var(--header-color);
   /* border-bottom: solid 1px #f3f3f3; */
 }
 
-.v-toolbar-action {
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.v-header-logo {
+  width: 36px;
+  height: 36px;
+  margin-left: 20px;
+  margin-right: 12px;
 }
 
-.v-toolbar-action2 {
-  background-color: transparent;
-}
-
-.v-toolbar-title {
-  font-size: 16px;
+.v-header-title {
+  margin-right: auto;
+  color: white;
+  font-size: 20px;
   font-weight: bold;
 }
 
-.v-toolbar-back {
-  width: 20px;
-  height: 20px;
-  margin-left: 16px;
-  margin-right: 16px;
+.v-header-icon {
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  margin-left: 12px;
 }
 
-.v-toolbar-height {
-  height: 56px;
+.v-header-user {
+  margin: 0 20px 0 26px;
+  padding: 6px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+}
+
+.v-header-user-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
 }
 </style>

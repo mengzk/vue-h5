@@ -1,6 +1,6 @@
 <template>
-  <div class="page">
-    <div class="workbench">
+  <div class="page workbench">
+    <div>
       <h1>Workbench</h1>
       <p>This is the workbench page.</p>
       <button @click="router.push('/product')">Go to Product List</button>
@@ -16,13 +16,11 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-onMounted(() => {});
+onMounted(() => { });
 </script>
 
 <style scoped>
 .workbench {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh;
 }
 </style>

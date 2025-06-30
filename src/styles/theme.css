@@ -28,16 +28,11 @@
 
   --border: solid 1px #e0e0e0;
 
-  --toolbar-height: 64px;
-  --status-height: 24px;
-  --safe-top: 24px;
-  --safe-bottom: 24px;
-  
-  --status-bar-height: env(safe-area-inset-top);
-  --safe-area-inset-top: env(safe-area-inset-top);
-  --safe-area-inset-right: env(safe-area-inset-right);
-  --safe-area-inset-bottom: env(safe-area-inset-bottom);
-  --safe-area-inset-left: env(safe-area-inset-left);
+  --header-color: #3579F6;
+  --header-height: 62px;
+  --toolbar-height: 62px;
+
+  --menu-width: 240px;
 }
 /* 
 prefers-scheme支持三个值 :

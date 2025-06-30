@@ -1,11 +1,8 @@
 <template>
-  <div class="c-container">
-    <div class="c-menu-box">
-      <el-menu
-        :default-active="curMenu"
-        @open="onHandleOpen"
-        @close="onHandleClose"
-      >
+  <Header />
+  <div class="rc-container">
+    <div class="rc-menu">
+      <el-menu :default-active="curMenu" @open="onHandleOpen" @close="onHandleClose">
         <template v-for="menu in menuList" :key="menu.name">
           <el-sub-menu v-if="hasChildren(menu)" :index="menu.name">
             <template #title>
@@ -13,7 +10,7 @@
             </template>
             <template v-for="child in menu.children" :key="child.name">
               <el-menu-item :index="child.name" @click="onMenuClick(child)">
-                {{ child.title }}
+                <span>{{ child.title }}</span>
               </el-menu-item>
             </template>
           </el-sub-menu>
@@ -23,20 +20,20 @@
         </template>
       </el-menu>
     </div>
-
-    <!-- <Header /> -->
     <!-- 路由动画 -->
-    <RouterView v-slot="{ Component, route }">
-      <Transition name="slide-right" mode="out-in" appear>
-        <KeepAlive :max="10" :exclude="keepAliveExclude">
-          <component :is="Component" :key="route.path" v-if="route.meta.keep" />
-        </KeepAlive>
-      </Transition>
+    <div class="rc-layout">
+      <RouterView v-slot="{ Component, route }">
+        <Transition name="slide-right" mode="out-in" appear>
+          <KeepAlive :max="10" :exclude="keepAliveExclude">
+            <component :is="Component" :key="route.path" v-if="route.meta.keep" />
+          </KeepAlive>
+        </Transition>
 
-      <Transition name="slide-right" mode="out-in" appear>
-        <component :is="Component" :key="route.path" v-if="!route.meta.keep" />
-      </Transition>
-    </RouterView>
+        <Transition name="slide-right" mode="out-in" appear>
+          <component :is="Component" :key="route.path" v-if="!route.meta.keep" />
+        </Transition>
+      </RouterView>
+    </div>
   </div>
 </template>
 
@@ -46,7 +43,7 @@ import { useRouter } from "vue-router";
 
 // import { getUrlParams } from "@/utils";
 import useMenuStore from "@/stores/menu";
-// import Header from "./Header.vue";
+import Header from "./Header.vue";
 
 const keepAliveExclude = ["Login", "Register", "ResetPassword", "NotFound"];
 
@@ -86,15 +83,33 @@ function onMenuClick(menu) {
 </script>
 
 <style scoped>
-.c-container {
+.rc-container {
   width: 100vw;
-  min-height: 100vh;
+  height: calc(100vh - var(--header-height));
   display: flex;
   flex-direction: row;
 }
-.c-menu-box {
-  width: 300px;
+
+.rc-menu {
+  width: var(--menu-width);
+  min-width: var(--menu-width);
+  height: calc(100vh - var(--header-height));
   display: flex;
   flex-direction: column;
+  background-color: white;
 }
+.rc-layout {
+  flex: 1;
+  height: calc(100vh - var(--header-height));
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+.rc-layout::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
 </style>
