@@ -17,18 +17,21 @@
       </template>
     </el-popover>
 
-    <el-popover placement="bottom-end" :hide-after="0" :offset="8" trigger="hover" :show-arrow="false">
+    <el-popover popper-class="v-popover" placement="bottom-end" :hide-after="0" :offset="8" trigger="hover" :show-arrow="false">
       <template #reference>
         <div class="v-header-user">
           <img class="v-header-user-icon" :src="userIc" />
         </div>
       </template>
       <template #default>
-        <div>
-          <h3>管理员</h3>
-          <p>个人中心</p>
-          <p>账号设置</p>
-          <p>退出登录</p>
+        <div class="v-user-popover">
+          <div class="v-user-popover-info">
+            <img class="v-header-user-icon" :src="userIc" />
+            <span>{{ titleStr }}</span>
+          </div>
+          <div class="v-user-popover-item">个人中心</div>
+          <div class="v-user-popover-item">账号设置</div>
+          <div class="v-user-popover-item">退出登录</div>
         </div>
       </template>
     </el-popover>
@@ -130,4 +133,27 @@ function onBack() {
   height: 32px;
   border-radius: 50%;
 }
+.v-popover {
+  padding: 0 20px !important;
+  border-radius: 8px !important;
+}
+.v-user-popover {
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+}
+.v-user-popover-info {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+.v-user-popover-info span {
+  margin-left: 12px;
+}
+.v-user-popover-item {
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
 </style>
