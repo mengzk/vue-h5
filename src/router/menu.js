@@ -96,6 +96,34 @@ const menuRouter = [
       },
     ],
   },
+  {
+    path: "/repository",
+    name: "Repository",
+    meta: { transition: "slide-left", title: "知识库" },
+    component: Container,
+    children: [
+      {
+        path: "",
+        name: "RepositoryIndex",
+        meta: { transition: "slide-left", title: "知识库列表" },
+        component: () => import("../pages/repository/Index.vue"),
+        children: [
+          {
+            path: "",
+            component: () => import("@/pages/repository/BaseInfo.vue"),
+          },
+          {
+            path: "category",
+            component: () => import("@/pages/repository/Category.vue"),
+          },
+          {
+            path: "content",
+            component: () => import("@/pages/repository/Content.vue"),
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default menuRouter;
