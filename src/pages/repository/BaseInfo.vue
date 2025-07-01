@@ -1,20 +1,22 @@
 <template>
   <div class="base-info">
-    <el-form class="form" label-width="80px" :rules="rules">
+    <el-form class="form" label-width="80px" :model="form" :rules="rules">
       <el-form-item class="item-cell" label="品牌名称" prop="name">
-        <el-input v-model.trim="form.name" maxlength="20" style="width: 300px;" placeholder="请输入品牌名称" show-word-limit />
+        <el-input v-model.trim="form.name" maxlength="20" style="width: 400px;height: 46px;" placeholder="请输入品牌名称"
+          show-word-limit />
       </el-form-item>
 
       <el-form-item class="item-cell" label="行业" prop="industry">
-        <el-select v-model="form.industry" style="width: 300px;" placeholder="请选择状态">
-          <el-option v-for="item in industrys" :key="item.key" :label="item.label" :value="item.value" />
+        <el-select v-model="form.industry" style="width: 400px;" size="large" placeholder="请选择状态">
+          <el-option class="option" v-for="item in industrys" :key="item.key" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
 
       <div class="note-box">
-        <span class="box-label">我的笔记</span>
+        <el-form-item label="我的笔记"></el-form-item>
+        <!-- <span class="box-label">我的笔记</span> -->
         <div>
-          <div class="add-btn">
+          <div class="add-btn" @click="showAddNote = true">
             <span>添加笔记</span>
           </div>
 
@@ -31,7 +33,7 @@
       </div>
     </el-form>
 
-    <DialogAddNote :show="showAddNote" />
+    <DialogAddNote :show="showAddNote" @close="showAddNote = false" />
   </div>
 </template>
 
@@ -87,6 +89,10 @@ onMounted(() => { });
 
 .item-cell {
   margin-bottom: 24px;
+}
+
+.option {
+  font-size: 16px;
 }
 
 .note-box {
