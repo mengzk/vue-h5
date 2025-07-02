@@ -4,9 +4,9 @@
       <el-button type="primary" @click="onEdit">编辑分类</el-button>
     </div>
     <div class="table-list">
-      <el-table :data="tableData" border header-cell-class-name="table-header" cell-class-name="table-cell">
-        <el-table-column fixed prop="content" label="一级分类" width="200" />
-        <el-table-column prop="content2" label="二级分类" width="200">
+      <el-table :data="tableData" border header-cell-class-name="epos-cg-table-header" cell-class-name="epos-cg-table-cell">
+        <el-table-column fixed prop="content" label="一级分类" width="180" />
+        <el-table-column prop="content2" label="二级分类" width="180">
           <!-- 多行类目列表 -->
           <template #default="scope">
             <div class="row-item" v-for="(item, index) in scope.row.list" :key="index">
@@ -73,7 +73,7 @@ function onDelete(row) {
 }
 
 .row-item {
-  padding: 12px 12px;
+  padding: 12px 0;
   border-bottom: 1px solid #eaeaea;
   text-align: left;
   font-size: 14px;
@@ -84,14 +84,14 @@ function onDelete(row) {
 }
 </style>
 <style>
-.table-header {
+.repos-cg-table-header {
   font-size: 16px !important;
   font-weight: 500 !important;
   color: #363636;
   background-color: #f3f5fa !important;
 }
 
-.table-cell {
+.epos-cg-table-cell {
   margin: 0 !important;
   padding: 0 0 !important;
   font-size: 15px !important;
