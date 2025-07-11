@@ -3,7 +3,7 @@
     <img class="v-header-logo" src="@/assets/logo.svg" />
     <span class="v-header-title">{{ props.title }}</span>
 
-    <el-popover placement="bottom-end" width="200px" :offset="8" trigger="click" :show-arrow="false">
+    <el-popover placement="bottom-end" width="200px" :offset="8" trigger="click" :show-arrow="false" transition="el-fade-in-linear">
       <template #reference>
         <img class="v-header-icon" src="@/assets/notify.png" />
       </template>
@@ -17,7 +17,7 @@
       </template>
     </el-popover>
 
-    <el-popover popper-class="v-popover" placement="bottom-end" :hide-after="0" :offset="8" trigger="hover" :show-arrow="false">
+    <el-popover popper-class="v-popover" placement="bottom-end" :hide-after="0" :offset="8" trigger="hover" :show-arrow="false" transition="el-fade-in-linear">
       <template #reference>
         <div class="v-header-user">
           <img class="v-header-user-icon" :src="userIc" />
@@ -124,7 +124,7 @@ function onBack() {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  transition: all 0.2s ease;
   color: white;
 }
 
@@ -132,10 +132,27 @@ function onBack() {
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.v-header-user:hover .v-header-user-icon {
+  transform: scale(1.1);
 }
 .v-popover {
   padding: 0 20px !important;
   border-radius: 8px !important;
+  /* animation: popover-fade-in 0.5s ease; */
+}
+
+@keyframes popover-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 .v-user-popover {
   padding: 0 8px;
@@ -154,6 +171,10 @@ function onBack() {
   height: 36px;
   display: flex;
   align-items: center;
+  transition: all 0.2s ease;
 }
-
+.v-user-popover-item:hover {
+  background-color: #f5f7fa;
+  color: #409eff;
+}
 </style>
