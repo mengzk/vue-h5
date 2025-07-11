@@ -1,0 +1,55 @@
+/*
+ * Transition styles for Vue.js applications
+ * These styles define various transition effects for entering and leaving elements.
+      <Transition name="slide-fade" mode="out-in" appear></Transition>
+      <Transition name="slide-left" mode="out-in" appear></Transition>
+      <Transition name="slide-right" mode="out-in" appear></Transition>
+ */
+/* 滑动淡入淡出动画 */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.slide-fade-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.slide-fade-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+/* 左滑动画 */
+.slide-left-enter-active,
+.slide-left-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.slide-left-enter-from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+
+/* 右滑动画 */
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}

@@ -23,13 +23,13 @@
     <!-- 路由动画 -->
     <div class="rc-layout">
       <RouterView v-slot="{ Component, route }">
-        <Transition name="slide-right" mode="out-in" appear>
+        <Transition name="slide-fade" mode="out-in" appear>
           <KeepAlive :max="10" :exclude="keepAliveExclude">
             <component :is="Component" :key="route.path" v-if="route.meta.keep" />
           </KeepAlive>
         </Transition>
 
-        <Transition name="slide-right" mode="out-in" appear>
+        <Transition name="slide-fade" mode="out-in" appear>
           <component :is="Component" :key="route.path" v-if="!route.meta.keep" />
         </Transition>
       </RouterView>
