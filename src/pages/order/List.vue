@@ -1,6 +1,6 @@
 <template>
   <div class="container category">
-    <h2 class="page-title">品类管理</h2>
+    <h2 class="page-title">订单管理</h2>
     <el-form class="search-wrap" :model="searchForm" ref="searchFormRef">
       <el-form-item
         class="search-item"
@@ -42,7 +42,7 @@
     </el-form>
 
     <div class="label-box">
-      <el-button type="primary" @click="onCreate">新建品类</el-button>
+      <el-button type="primary" @click="onCreate">新建订单</el-button>
     </div>
     <div class="table-list">
       <el-table

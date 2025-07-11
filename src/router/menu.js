@@ -71,8 +71,8 @@ const menuRouter = [
       {
         path: "",
         name: "OrderList",
-        meta: { transition: "slide-left", title: "会员列表" },
-        component: () => import("../pages/member/List.vue"),
+        meta: { transition: "slide-left", title: "订单列表" },
+        component: () => import("../pages/order/List.vue"),
       },
     ],
   },
