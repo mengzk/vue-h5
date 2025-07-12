@@ -1,25 +1,23 @@
 <template>
   <Header />
   <div class="rc-container">
-    <div class="rc-menu">
-      <el-menu :default-active="curMenu" @open="onHandleOpen" @close="onHandleClose">
-        <template v-for="menu in menuList" :key="menu.name">
-          <el-sub-menu v-if="hasChildren(menu)" :index="menu.name">
-            <template #title>
-              <span class="rc-menu-text">{{ menu.title }}</span>
-            </template>
-            <template v-for="child in menu.children" :key="child.name">
-              <el-menu-item :index="child.name" @click="onMenuClick(child)">
-                <span class="rc-menu-text2">{{ child.title }}</span>
-              </el-menu-item>
-            </template>
-          </el-sub-menu>
-          <el-menu-item v-else :index="menu.name" @click="onMenuClick(menu)">
+    <el-menu class="rc-menu" :default-active="curMenu" @open="onHandleOpen" @close="onHandleClose">
+      <template v-for="menu in menuList" :key="menu.name">
+        <el-sub-menu v-if="hasChildren(menu)" :index="menu.name">
+          <template #title>
             <span class="rc-menu-text">{{ menu.title }}</span>
-          </el-menu-item>
-        </template>
-      </el-menu>
-    </div>
+          </template>
+          <template v-for="child in menu.children" :key="child.name">
+            <el-menu-item :index="child.name" @click="onMenuClick(child)">
+              <span class="rc-menu-text2">{{ child.title }}</span>
+            </el-menu-item>
+          </template>
+        </el-sub-menu>
+        <el-menu-item v-else :index="menu.name" @click="onMenuClick(menu)">
+          <span class="rc-menu-text">{{ menu.title }}</span>
+        </el-menu-item>
+      </template>
+    </el-menu>
     <!-- 路由动画 -->
     <div class="rc-layout">
       <RouterView v-slot="{ Component, route }">
@@ -97,13 +95,17 @@ function onMenuClick(menu) {
   display: flex;
   flex-direction: column;
   background-color: white;
+  overflow-y: auto;
 }
+
 .rc-menu-text {
-  font-size: 18px;
-}
-.rc-menu-text2 {
   font-size: 17px;
 }
+
+.rc-menu-text2 {
+  font-size: 16px;
+}
+
 .rc-layout {
   flex: 1;
   height: calc(100vh - var(--header-height));
@@ -111,11 +113,14 @@ function onMenuClick(menu) {
   flex-direction: column;
   overflow: auto;
 
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer and Edge */
-}
-.rc-layout::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* Internet Explorer and Edge */
 }
 
+.rc-layout::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
+}
 </style>

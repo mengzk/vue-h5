@@ -12,3 +12,32 @@
   justify-content: flex-start;
   line-height: 32px;
 }
+
+/* menu */
+.el-menu {
+  padding: 0;
+  --el-menu-item-height: 50px;
+}
+.el-sub-menu {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+.el-sub-menu.is-active {
+  background-color: #f6f6f6;
+}
+.el-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  height: 50px !important;
+  font-size: 16px;
+  margin-top: 0;
+}
+.el-menu-item:hover {
+  background-color: var(--theme-bg);
+}
+.el-menu-item.is-active {
+  background-color: var(--theme-bg);
+  color: var(--theme);
+}

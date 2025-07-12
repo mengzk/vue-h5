@@ -1,6 +1,7 @@
 /* semantic color variables for this project */
 :root {
   --theme: #3579F6;
+  --theme-bg: #3579f610;
   --bg-color: #f5f6f3;
   --box-color: rgba(255, 255, 255, 0.1);
   --line-color: rgba(255, 255, 255, 0.3);
@@ -32,7 +33,7 @@
   --header-height: 62px;
   --toolbar-height: 62px;
 
-  --menu-width: 240px;
+  --menu-width: 239px;
 }
 /* 
 prefers-scheme支持三个值 :
