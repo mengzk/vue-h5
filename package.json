@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:test": "vite --mode test",
     "dev:prod": "vite --mode prod",
     "build": "vite build --mode prod",
     "build:test": "vite build --mode test",

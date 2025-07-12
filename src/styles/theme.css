@@ -2,20 +2,16 @@
 :root {
   --theme: #3579F6;
   --theme-bg: #3579f610;
-  --bg-color: #f5f6f3;
-  --box-color: rgba(255, 255, 255, 0.1);
-  --line-color: rgba(255, 255, 255, 0.3);
+  --bg: #f5f6f3;
+  --card: rgba(255, 255, 255, 0.1);
+  --line: rgba(255, 255, 255, 0.3);
 
   --border: #e0e0e0;
-  --border-hover: #d0d0d0;
 
-  --text: #232323;
-  --tit-color: #232323;
-  --sut-color: #454647;
-  --val-color: #454647;
-  --lab-color: #878689;
-  --date-color: #989697;
-  --hint-color: #989697;
+  --title: #232323;
+  --sutitle: #454647;
+  --date-text: #989697;
+  --hint-text: #989697;
 
   --status: #ff9900;
   --status2: #E55C5C;
@@ -24,10 +20,6 @@
   --status5: #3579F6;
 
   --lg: linear-gradient(90deg, #2EE56B 0%, #E5C72E 50%, #E52E2E 100%);
-  --lg2: linear-gradient(0deg, #f6f6f6 25%, #f9f9f9 37%, #f6f6f6 63%);
-  --lg3: linear-gradient(100deg, #f6f6f6 25%, #f9f9f9 37%, #f6f6f6 63%);
-
-  --border: solid 1px #e0e0e0;
 
   --header-color: #3579F6;
   --header-height: 62px;
