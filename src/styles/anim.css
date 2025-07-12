@@ -63,3 +63,24 @@
   /* transform: perspective(300px) translate3d(20px, -20px, 0) rotate3d(1, 0, 0, -5deg); */
   transform: perspective(300px) translate3d(26px, -0px, 0);
 }
+
+.v-anim-demo {
+  width: 100px;
+  height: 100px;
+
+  animation: anim-name 2s infinite;
+}
+@keyframes anim-name {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

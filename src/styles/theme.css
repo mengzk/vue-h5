@@ -22,8 +22,8 @@
   --lg: linear-gradient(90deg, #2EE56B 0%, #E5C72E 50%, #E52E2E 100%);
 
   --header-color: #3579F6;
-  --header-height: 62px;
-  --toolbar-height: 62px;
+  --header-height: 56px;
+  --toolbar-height: 56px;
 
   --menu-width: 239px;
 }
