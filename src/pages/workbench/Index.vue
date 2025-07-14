@@ -2,7 +2,7 @@
   <div class="workbench">
     <div class="grid">
       <template v-for="item in itemList" :key="item.path">
-        <div class="item" @click="router.push(item.path)">
+        <div class="item">
           <h2>{{ item.name }}</h2>
         </div>
       </template>
