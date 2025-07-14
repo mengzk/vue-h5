@@ -97,6 +97,26 @@ const menuRouter = [
     ],
   },
   {
+    path: "/salary",
+    name: "Salary",
+    meta: { transition: "slide-left", title: "薪资" },
+    component: Container,
+    children: [
+      {
+        path: "",
+        name: "SalaryList",
+        meta: { transition: "slide-left", title: "薪资列表" },
+        component: () => import("../pages/salary/List.vue"),
+      },
+      {
+        path: "detail",
+        name: "SalaryDetail",
+        meta: { transition: "slide-left", title: "薪资详情" },
+        component: () => import("../pages/salary/Detail.vue"),
+      },
+    ],
+  },
+  {
     path: "/repository",
     name: "Repository",
     meta: { transition: "slide-left", title: "知识库" },

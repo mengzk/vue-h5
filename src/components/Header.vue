@@ -95,6 +95,7 @@ function onBack() {
   align-items: center;
   background-color: var(--header-color);
   /* border-bottom: solid 1px #f3f3f3; */
+  box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.1);
 }
 
 .v-header-logo {
