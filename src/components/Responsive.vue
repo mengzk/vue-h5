@@ -12,21 +12,13 @@
       </div>
     </header>
 
-    <!-- 移动端菜单 -->
-    <div 
-      v-if="isMobile" 
-      class="mobile-menu"
-      :class="{ 'mobile-menu--open': mobileMenuOpen }"
-    >
-      <slot name="navigation" />
-    </div>
-
     <!-- 主要内容区域 -->
     <main class="main-content" :class="mainClass">
       <div class="container">
         <slot />
       </div>
     </main>
+    
     <!-- 移动端底部导航 -->
     <nav v-if="isMobile && showBottomNav" class="nav-mobile">
       <slot name="bottom-navigation" />
@@ -39,7 +31,7 @@ import { ref, computed } from 'vue'
 import { useResponsive } from '../hooks/useResponsive'
 
 export default {
-  name: 'ResponsiveLayout',
+  name: 'Responsive',
   props: {
     title: {
       type: String,
@@ -128,24 +120,6 @@ export default {
 .nav-desktop {
   display: flex;
   gap: var(--spacing-lg);
-}
-
-/* 移动端菜单 */
-.mobile-menu {
-  position: fixed;
-  top: 60px;
-  left: -100%;
-  width: 80%;
-  height: calc(100vh - 60px);
-  background: red;
-  border-right: 1px solid var(--border-color);
-  transition: left 0.3s ease;
-  z-index: 99;
-  padding: var(--spacing-md);
-}
-
-.mobile-menu--open {
-  left: 0;
 }
 
 /* 主要内容 */
