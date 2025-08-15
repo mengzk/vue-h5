@@ -9,9 +9,13 @@ import { createPinia } from "pinia";
 
 import "./main.css";
 import "./utils/boot";
+import { initResponsive } from "./utils/responsive";
 
 import App from "./App.vue";
 import router from "./router/index";
+
+// 初始化响应式适配
+initResponsive();
 
 // 创建 Vue 应用实例
 const app = createApp(App);

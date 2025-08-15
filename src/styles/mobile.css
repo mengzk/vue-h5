@@ -1,0 +1,245 @@
+/**
+ * H5 和 Web 端响应式样式
+ */
+
+/* 全局响应式基础样式 */
+:root {
+  /* 基础变量 */
+  --primary-color: #007aff;
+  --text-color: #333;
+  --bg-color: #f5f5f5;
+  --border-color: #e5e5e5;
+  
+  /* 间距变量 */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* 字体大小变量 */
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-md: 1rem;
+  --font-lg: 1.125rem;
+  --font-xl: 1.25rem;
+  --font-xxl: 1.5rem;
+}
+
+/* 移动端样式 */
+.device-mobile {
+  --container-padding: 1rem;
+  --max-width: 100%;
+}
+
+.device-mobile .container {
+  padding: 0 var(--container-padding);
+  max-width: var(--max-width);
+}
+
+/* 平板样式 */
+.device-tablet {
+  --container-padding: 2rem;
+  --max-width: 768px;
+}
+
+.device-tablet .container {
+  padding: 0 var(--container-padding);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* 桌面样式 */
+.device-desktop {
+  --container-padding: 3rem;
+  --max-width: 1200px;
+}
+
+.device-desktop .container {
+  padding: 0 var(--container-padding);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* 响应式网格系统 */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem;
+}
+
+.col {
+  padding: 0 0.5rem;
+  flex: 1;
+}
+
+/* 移动端列布局 */
+@media (max-width: 767px) {
+  .col-mobile-12 { width: 100%; }
+  .col-mobile-6 { width: 50%; }
+  .col-mobile-4 { width: 33.333%; }
+  .col-mobile-3 { width: 25%; }
+  
+  .row {
+    margin: 0 -0.25rem;
+  }
+  
+  .col {
+    padding: 0 0.25rem;
+  }
+}
+
+/* 平板列布局 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .col-tablet-12 { width: 100%; }
+  .col-tablet-8 { width: 66.666%; }
+  .col-tablet-6 { width: 50%; }
+  .col-tablet-4 { width: 33.333%; }
+  .col-tablet-3 { width: 25%; }
+}
+
+/* 桌面列布局 */
+@media (min-width: 1024px) {
+  .col-desktop-12 { width: 100%; }
+  .col-desktop-9 { width: 75%; }
+  .col-desktop-8 { width: 66.666%; }
+  .col-desktop-6 { width: 50%; }
+  .col-desktop-4 { width: 33.333%; }
+  .col-desktop-3 { width: 25%; }
+}
+
+/* 响应式隐藏/显示 */
+@media (max-width: 767px) {
+  .hidden-mobile { display: none !important; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hidden-tablet { display: none !important; }
+}
+
+@media (min-width: 1024px) {
+  .hidden-desktop { display: none !important; }
+}
+
+.show-mobile { display: none !important; }
+.show-tablet { display: none !important; }
+.show-desktop { display: none !important; }
+
+@media (max-width: 767px) {
+  .show-mobile { display: block !important; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .show-tablet { display: block !important; }
+}
+
+@media (min-width: 1024px) {
+  .show-desktop { display: block !important; }
+}
+
+/* 触摸友好的按钮样式 */
+.btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: var(--font-md);
+  min-height: 44px; /* iOS 推荐的最小触摸目标 */
+}
+
+.btn:hover {
+  background: #f8f8f8;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+/* 移动端专用样式 */
+@media (max-width: 767px) {
+  .btn {
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+    min-height: 48px; /* 移动端更大的触摸目标 */
+  }
+  
+  /* 移动端表单样式 */
+  .form-group {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: var(--font-md);
+    min-height: 44px;
+  }
+  
+  /* 移动端导航样式 */
+  .nav-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid var(--border-color);
+    padding: var(--spacing-sm) 0;
+    z-index: 1000;
+  }
+}
+
+/* 平板和桌面样式 */
+@media (min-width: 768px) {
+  .btn {
+    width: auto;
+    min-width: 120px;
+    margin-right: var(--spacing-sm);
+  }
+  
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .form-label {
+    width: 120px;
+    margin-right: var(--spacing-md);
+    text-align: right;
+  }
+  
+  .form-control {
+    flex: 1;
+    max-width: 300px;
+  }
+}
+
+/* 安全区域适配（iOS 刘海屏等） */
+@supports (padding: max(0px)) {
+  .safe-area-inset-top {
+    padding-top: max(var(--spacing-md), env(safe-area-inset-top));
+  }
+  
+  .safe-area-inset-bottom {
+    padding-bottom: max(var(--spacing-md), env(safe-area-inset-bottom));
+  }
+  
+  .safe-area-inset-left {
+    padding-left: max(var(--spacing-md), env(safe-area-inset-left));
+  }
+  
+  .safe-area-inset-right {
+    padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+  }
+}
