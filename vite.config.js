@@ -17,7 +17,8 @@ const isDev = process.env.NODE_ENV !== "production";
 export default defineConfig(({ command, mode }) => {
   // 加载环境变量
   const env = loadEnv(mode, process.cwd(), "");
-  console.log("---> env:", env.VITE_ENV);
+  const suffix = env.VITE_ENV;
+  console.log("---> env:", suffix);
 
   return {
     base: isDev ? "" : "./", // 设置资源相对路径下加载资源。
@@ -43,21 +44,29 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     server: {
-      /** 设置 host: true 才可以使用 Network 的形式，以 IP 访问项目 */
-      host: true, // host: "0.0.0.0"
+      host: true,
       /** 端口号 */
       port: 8930,
       /** 是否自动打开浏览器 */
       open: false,
       /** 跨域设置允许 */
       cors: true,
-      /** 端口被占用时，是否直接退出 */
       strictPort: false,
       proxy: {
         "/care": {
-          target: "https://aimlai.com/healthcare",
+          target: `https://care-${suffix}.com`,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/care/, ""),
+        },
+        "/auth": {
+          target: `https://auth-${suffix}.com`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/auth/, ""),
+        },
+        "/order": {
+          target: `https://order-${suffix}.com`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/order/, ""),
         },
       },
       hmr: {

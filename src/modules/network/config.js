@@ -6,40 +6,21 @@
  */
 const envData = import.meta.env;
 
-import Configs from "@/config/index";
 import Constants from "@/config/constant";
-
-// 环境及服务器设置
-const requestDomains = {
-  prod: {
-    api: "https://xxx.com",
-    ark: "https://ark.com/api",
-  },
-  dev: {
-    api: "/care",
-    ark: "/ark",
-  },
-};
-
-// 获取指定标签环境域名
-export function getRequestUrl(tag, path) {
-  const domain = tag || "api";
-  return requestDomains[Configs.env][domain] + path;
-}
 
 // 获取指定标签环境域名
 export function getDomainFromTag(tag, path) {
   const key = tag || "api";
   let domain = "";
   switch (key) {
-    case "api":
-      domain = envData.VITE_API;
+    case "auth":
+      domain = envData.VITE_AUTH;
       break;
-    case "ark":
-      domain = envData.VITE_ARK;
+    case "order":
+      domain = envData.API_ORDER;
       break;
     default:
-      domain = envData.VITE_API;
+      domain = envData.API_BASE;
       break;
   }
 
@@ -51,7 +32,6 @@ export function mergeHeaders(headers={}) {
   const token = Constants.token || '...';
   return {
     Authorization: token,
-    sn: Constants.sn,
     // token,
     ...headers
   };
