@@ -57,12 +57,12 @@ const routers = createRouter({
         },
       ],
     },
-    {
-      path: "/test",
-      name: "Test",
-      meta: { title: "test" },
-      component: () => import("../pages/warn/TestView.vue"),
-    },
+    // {
+    //   path: "/test",
+    //   name: "Test",
+    //   meta: { title: "test" },
+    //   component: () => import("../pages/warn/TestView.vue"),
+    // },
     {
       path: "/denied",
       name: "Denied",

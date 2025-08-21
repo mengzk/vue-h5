@@ -7,43 +7,51 @@ const instance = axios.create({
 
 // 请求事例
 export async function httpClient(options) {
-  if(options.method == "GET") {
+  if (options.method == "GET") {
     options.params = options.data;
     delete options.data;
   }
   // console.log("options--->", options);
 
-  return instance.request(options)
-  .then((response) => {
-    const code = response.status;
-    if(code == 200) {
-      return response.data;
-    }else {
-      const message = parseErr(code);
-      return {code, message, data: null};
-    }
-  })
-  .catch((err) => {
-    let message = '';
-    if (err.response) {
-      message = err.response.data.message || err.response.message || err.response.statusText || err.message || '服务异常，请检查网络';
-      console.warn('http response error:', err.response.data||err.response);
-    } else if (err.request) {
-      message = err.message;
-      console.warn('http request error:', err);
-    } else {
-      message = err.message || '网络异常，请检查网络连接';
-      console.warn('http client error:', err.message);
-    }
-    return {code: -1010, message, data: null};
-  });
+  return instance
+    .request(options)
+    .then((response) => {
+      const code = response.status;
+      if (code == 200) {
+        return response.data;
+      } else {
+        const message = parseErr(code);
+        return { code, message, data: null };
+      }
+    })
+    .catch((err) => {
+      let message = "";
+      if (err.response) {
+        message =
+          err.response.data.message ||
+          err.response.message ||
+          err.response.statusText ||
+          err.message ||
+          "服务异常，请检查网络";
+        console.warn("http response error:", err.response.data || err.response);
+      } else if (err.request) {
+        message = err.message;
+        console.warn("http request error:", err);
+      } else {
+        message = err.message || "网络异常，请检查网络连接";
+        console.warn("http client error:", err.message);
+      }
+      return { code: -1010, message, data: null };
+    });
 }
 
 function parseErr(code) {
   let message = "";
   switch (code) {
     case 0:
-      message = `${code == "econnaborted" ? "请求超时" : "网络异常"}，请重新连接`;
+      message = `${
+        code == "econnaborted" ? "请求超时" : "网络异常"
+      }，请重新连接`;
       break;
     case 403:
       message = "请求地址不能访问";
