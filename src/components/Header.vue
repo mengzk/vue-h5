@@ -50,7 +50,7 @@ function onBack() {
   position: sticky;
   display: flex;
   align-items: center;
-  background-color: var(--header-bg);
+  /* background-color: var(--header-bg); */
 }
 
 .v-header-logo {
