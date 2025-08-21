@@ -1,7 +1,7 @@
 <template>
   <div class="container v-cotner">
     <div class="v-cotner-bg"></div>
-    <v-header :title="props.title" :onBack="props.onBack">
+    <v-header :title="props.title" :onBack="props.back">
       <slot name="action"></slot>
     </v-header>
     <div :class="`v-cotner-page ${props.class2}`">
@@ -17,7 +17,7 @@ const props = defineProps({
     required: false,
     default: ''
   },
-  onBack: {
+  back: {
     type: Function,
     required: false,
   },
@@ -46,7 +46,7 @@ const props = defineProps({
   z-index: -1;
   width: 100vw;
   height: 100vh;
-  background-image: url('@/assets/logo.svg');
+  background-image: url('@/assets/img/app_bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

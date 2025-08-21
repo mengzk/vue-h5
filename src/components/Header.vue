@@ -1,5 +1,8 @@
 <template>
   <div class="v-header">
+    <div class="v-header-bg">
+      <div class="v-header-bg-img"></div>
+    </div>
     <div class="v-header-action">
       <img class="v-header-logo" src="@/assets/logo.svg" @click="onBack" />
     </div>
@@ -9,6 +12,7 @@
       <slot name="action"></slot>
     </div>
   </div>
+  <div class="v-header-height"></div>
 </template>
 
 <script setup>
@@ -41,16 +45,38 @@ function onBack() {
 </script>
 
 <style scoped>
+.v-header-height {
+  width: 1px;
+  height: var(--header-height);
+}
+
 .v-header {
-  width: 100vw;
+  width: 100%;
   height: var(--header-height);
   top: 0;
   left: 0;
   z-index: 9;
-  position: sticky;
+  position: fixed;
   display: flex;
   align-items: center;
-  /* background-color: var(--header-bg); */
+}
+
+.v-header-bg {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  display: flex;
+  position: absolute;
+  overflow: hidden;
+}
+
+.v-header-bg-img {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('@/assets/img/app_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .v-header-logo {
@@ -71,10 +97,11 @@ function onBack() {
 }
 
 .v-header-action {
-  min-width: 100px;
+  min-width: 90px;
 }
+
 .v-header-menu {
-  min-width: 100px;
+  min-width: 90px;
   display: flex;
   justify-content: flex-end;
 }

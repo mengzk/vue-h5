@@ -20,7 +20,7 @@
   z-index: -1;
   width: 100vw;
   height: 100vh;
-  background-image: url('@/assets/logo.svg');
+  background-image: url('@/assets/img/app_bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
