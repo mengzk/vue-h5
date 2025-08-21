@@ -8,14 +8,14 @@
 <script setup>
 import { onMounted, ref } from "vue";
 // import { useRouter } from "vue-router";
-import { getUrlParams } from "@/utils";
+// import { getUrlParams } from "@/utils";
 
 // const router = useRouter();
 const inited = ref(false);
 
 // 初始化
 onMounted(async () => {
-  const res = getUrlParams();
+  // const res = getUrlParams();
   const href = window.location.href;
   let curPath = href.split("#")[1];
   if (curPath) {
@@ -24,7 +24,7 @@ onMounted(async () => {
     curPath = "";
   }
   // console.log("---> href", curPath);
-  console.log("---> query", res);
+  // console.log("---> query", res);
 
   // 初始化-信息
   const timer = setTimeout(() => {

@@ -44,7 +44,7 @@ function deviceInfo() {
   Constants.isIOS = iosD;
   Constants.inApp = iosD || androidD;
   Constants.platform = iosD ? "ios" : androidD ? "android" : "web";
-  // console.log(info);
+  console.log('--->', Constants.platform);
 }
 
 /**

@@ -98,10 +98,8 @@ export function resetRouter() {
 
 // 全局前置守卫
 routers.beforeEach(async (to, from, next) => {
-  console.log("---> guard ", to.path, from.path);
-
+  // console.log("---> guard ", to.path, from.path);
   let isExist = hasRoute(to.path);
-
   // 如果是登录页面，则直接放行
   if (to.name === "Login") {
     return next();

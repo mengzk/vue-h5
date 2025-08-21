@@ -10,12 +10,14 @@ import { initDevice, isInApp, isInEmulator } from "./device";
 
 const isApp = isInApp();
 
+console.log("---> env", import.meta.env, isApp);
+
 let VCInstance = null;
 // 非登录态初始化
-export function initConfig() {
-  // sessionStorage.clear(); // 清除缓存
-  initDevice();
+function initConfig() {
   consoleInit();
+  initDevice();
+  errHandler();
 }
 
 function consoleInit() {
@@ -27,15 +29,13 @@ function consoleInit() {
   } else {
     if (process.env.NODE_ENV != "production") {
       VCInstance = new VConsole();
-      
     } else {
       
     }
   }
 }
 
-
-export function errHandler() {
+function errHandler() {
   window.addEventListener("error", (event) => {
     console.log("errorHandler", event);
     // event.preventDefault();
@@ -56,3 +56,5 @@ export function errHandler() {
     // return true;
   });
 }
+
+initConfig();

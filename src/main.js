@@ -9,13 +9,13 @@ import { createPinia } from "pinia";
 
 import "./main.css";
 import "./utils/boot";
-import { initResponsive } from "./utils/responsive";
+import "./utils/responsive";
 
 import App from "./App.vue";
-import router from "./router/index";
+import Container from "./components/Container.vue";
+import Header from "./components/Header.vue";
 
-// 初始化响应式适配
-initResponsive();
+import router from "./router/index";
 
 // 创建 Vue 应用实例
 const app = createApp(App);
@@ -24,6 +24,8 @@ app.use(createPinia());
 app.use(router);
 
 app.mount("#app");
+app.component("container", Container);
+app.component("v-header", Header);
 
 app.config.errorHandler = (err, instance, info) => {
   // 向追踪服务报告错误
