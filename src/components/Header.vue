@@ -1,12 +1,11 @@
 <template>
   <div class="v-header">
-    <div class="v-header-bg">
+    <div class="v-header-bg" v-if="props.bg">
       <div class="v-header-bg-img"></div>
     </div>
     <div class="v-header-action">
-      <img class="v-header-logo" src="@/assets/logo.svg" @click="onBack" />
+      <img class="v-header-icon" src="@/assets/icon/header_back.png" @click="onBack" />
     </div>
-
     <span class="v-header-title">{{ props.title }}</span>
     <div class="v-header-menu">
       <slot name="action"></slot>
@@ -19,25 +18,32 @@
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
+
+const router = useRouter();
+
 const props = defineProps({
   title: {
     type: String,
     required: false,
     default: ''
   },
-  onBack: {
+  bg: {
+    type: Boolean,
+    required: false,
+    default: true
+  },
+  back: {
     type: Function,
     required: false,
+    default: null
   }
 });
-
-const router = useRouter();
 
 // onMounted(() => {});
 
 function onBack() {
-  if (props.onBack) {
-    props.onBack();
+  if (props.back) {
+    props.back();
   } else {
     router.back();
   }
@@ -79,10 +85,10 @@ function onBack() {
   background-repeat: no-repeat;
 }
 
-.v-header-logo {
-  width: 20px;
-  height: 20px;
-  margin-left: 12px;
+.v-header-icon {
+  width: 24px;
+  height: 24px;
+  margin-left: 8px;
 }
 
 .v-header-title {

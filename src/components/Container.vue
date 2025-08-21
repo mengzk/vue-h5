@@ -1,18 +1,38 @@
 <template>
-  <div class="container v-cotner">
-    <div class="v-cotner-bg"></div>
-    <v-header :title="props.title" :onBack="props.back">
+  <div class="container v-cotner" :style="props.style2">
+    <div class="v-cotner-bg" v-if="props.bg"></div>
+    <Header :title="props.title" :back="props.back" :bg="props.bg">
       <slot name="action"></slot>
-    </v-header>
-    <div :class="`v-cotner-page ${props.class2}`">
+    </Header>
+    <div :class="props.class2" v-if="props.class2">
+      <slot></slot>
+    </div>
+    <div class="v-cotner-page" v-else>
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script setup>
+import Header from './Header.vue';
+
 const props = defineProps({
   title: {
+    type: String,
+    required: false,
+    default: ''
+  },
+  bg: {
+    type: Boolean,
+    required: false,
+    default: true
+  },
+  class2: {
+    type: String,
+    required: false,
+    default: ''
+  },
+  style2: {
     type: String,
     required: false,
     default: ''
@@ -21,11 +41,6 @@ const props = defineProps({
     type: Function,
     required: false,
   },
-  class2: {
-    type: String,
-    required: false,
-    default: ''
-  }
 });
 </script>
 
@@ -33,12 +48,14 @@ const props = defineProps({
 .v-cotner {
   position: relative;
 }
+
 .v-cotner-page {
   height: calc(100vh - var(--header-height));
   display: flex;
   flex-direction: column;
   overflow-y: auto;
 }
+
 .v-cotner-bg {
   position: fixed;
   top: 0;
