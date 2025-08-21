@@ -39,6 +39,10 @@ const form = ref({
 onMounted(() => { });
 
 function onLogin() {
+  if (!form.value.account || !form.value.password) {
+    alert("账号和密码不能为空");
+    return;
+  }
 
 }
 
