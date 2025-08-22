@@ -1,5 +1,5 @@
 <template>
-  <container title="这是很长1很长2很长3很长的标题" :bg="false">
+  <container title="这是很长1很长2很长3很长的标题">
     <template #action>
       <button @click="$router.push('/category/add')">新增</button>
     </template>
@@ -19,8 +19,10 @@ onMounted(() => {
 <style scoped>
 .home {
   flex: 1;
+  margin: 0 20px 20px 20px;
   padding: 20px;
-  background-color: aqua;
+  border-radius: 12px;
+  background-color: white;
 }
 
 .page-title {
