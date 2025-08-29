@@ -45,43 +45,12 @@ const useMenuStore = defineStore("app-menu", () => {
     menuList.value = [];
   }
 
-  // 设置当前菜单
-  function setCurMenu(menu) {
-    curMenu.value = menu;
-  }
-  // 获取当前菜单
-  function getCurMenu() {
-    const curPath = curMenu.value;
-    let curName = "";
-    if (curPath) {
-      // 获取菜单名称
-      menuList.value.forEach((menu) => {
-        const children = menu.children || [];
-        if (menu.path == curPath) {
-          if (children.length > 0) {
-            curName = children[0].name; // 默认选中第一个子菜单
-          } else {
-            curName = menu.name;
-          }
-        } else if (children.length > 1) {
-          menu.children.forEach((child) => {
-            if (child.path == curPath) {
-              curName = child.name;
-            }
-          });
-        }
-      });
-    }
-    return curName;
-  }
   return {
     menuList,
     setMenu,
     queryMenu,
     hasMenu,
     clearMenu,
-    setCurMenu,
-    getCurMenu,
   };
 });
 

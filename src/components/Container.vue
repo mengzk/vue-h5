@@ -36,25 +36,29 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-import { useRouter } from "vue-router";
+import { ref, watch, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 // import { getUrlParams } from "@/utils";
 import useMenuStore from "@/stores/menu";
 import Header from "./Header.vue";
 
-const keepAliveExclude = ["Login", "Register", "ResetPassword", "NotFound"];
-
-const curMenu = ref("");
-const menuList = ref([]);
+const route = useRoute();
 const router = useRouter();
 const menuConfig = useMenuStore();
+
+const keepAliveExclude = ["Login", "Register", "ResetPassword", "NotFound"];
+
+const curMenu = computed(() => { 
+  return route.name 
+});
+
+const menuList = ref([]);
 
 watch(
   () => menuConfig.menuList,
   (newList) => {
     menuList.value = newList;
-    curMenu.value = menuConfig.getCurMenu();
   },
   { immediate: true }
 );

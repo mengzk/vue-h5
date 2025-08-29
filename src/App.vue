@@ -11,27 +11,12 @@ import { onMounted, ref } from "vue";
 import { getUrlParams } from "@/utils";
 import { launchApp } from "@/utils/launch";
 
-import useMenuStore from "@/stores/menu";
-
 // const router = useRouter();
 const inited = ref(false);
 
 // 初始化
 onMounted(async () => {
   const res = getUrlParams();
-  const href = window.location.href;
-  let curPath = href.split("#")[1];
-  if (curPath) {
-    curPath = curPath.split("?")[0];
-  } else {
-    curPath = "";
-  }
-
-  if(curPath) {
-    useMenuStore().setCurMenu(curPath);
-  }
-
-  // console.log("---> href", curPath);
   console.log("---> query", res);
 
   // 初始化-信息
