@@ -1,0 +1,10 @@
+{
+  "cn": {
+    "greeting": "你好",
+    "farewell": "再见"
+  },
+  "en": {
+    "greeting": "Hello",
+    "farewell": "Goodbye"
+  }
+}
