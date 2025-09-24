@@ -25,13 +25,13 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 - 列表渲染: [文档](https://cn.vuejs.org/guide/essentials/list.html)
 
 
-
 ## 性能
 
 - 虚拟列表 -社区库
   1. vue-virtual-scroller
   2. vue-virtual-scroll-grid
   3. vueuc/VVirtualList
+  4. SortableJS 拖拽库
 
 ## Project Setup
 
