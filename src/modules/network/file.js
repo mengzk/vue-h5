@@ -52,6 +52,6 @@ export function uploads({ files = [], path='', params = {} } = {}) {
   });
 }
 // 下载
-export function download(url) {
+export function downloadFile(url) {
   return new Promise((resolve, reject) => {});
 }
