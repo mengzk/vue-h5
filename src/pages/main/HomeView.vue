@@ -38,7 +38,6 @@ onDeactivated(() => {
 });
 
 function gotoAi() {
-  sessionStorage.setItem("chat-text", `如何解读： 并给出适当建议`);
   router.push({ path: "/chat" });
 }
 </script>

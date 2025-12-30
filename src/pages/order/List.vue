@@ -49,13 +49,9 @@
         :data="tableData"
         stripe
         header-cell-class-name="table-header"
-        cell-class-name="table-cell">
-        <el-table-column
-          fixed
-          prop="appCode"
-          label="应用Code"
-          min-width="120"
-        />
+        cell-class-name="table-cell"
+      >
+        <el-table-column fixed prop="appCode" label="应用Code" width="120" />
         <el-table-column prop="appName" label="应用名称" min-width="150" />
         <el-table-column prop="roleList" label="关联角色" min-width="230">
           <template #default="scope">
@@ -115,7 +111,6 @@
 <script setup lang="ts">
 import { onMounted, ref, reactive } from "vue";
 import { ElMessageBox, ElMessage } from "element-plus";
-
 
 const searchFormRef = ref();
 const searchForm = reactive({
