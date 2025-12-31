@@ -57,12 +57,12 @@ export default defineConfig(({ command, mode }) => {
         //   rewrite: (path) => path.replace(/^\/api/, ""),
         // },
         "/care": {
-          target: "https://aimlai.com/healthcare",
+          target: "https://ai.com/care",
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/care/, ""),
         },
         "/ark": {
-          target: "https://ark.cn-beijing.volces.com/api",
+          target: "https://volces.com/ark",
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/ark/, ""),
         },

@@ -27,7 +27,6 @@ function consoleInit() {
   } else {
     if (process.env.NODE_ENV != "production") {
       VCInstance = new VConsole();
-      
     } else {
       
     }

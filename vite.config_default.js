@@ -52,12 +52,12 @@ export default defineConfig({
       //   rewrite: (path) => path.replace(/^\/api/, ""),
       // },
       "/care": {
-        target: "https://aimlai.com/healthcare",
+        target: "https://ai.com/health/care",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/care/, ""),
       },
       "/ark": {
-        target: "https://ark.cn-beijing.volces.com/api",
+        target: "https://ark.volces.com/api",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/ark/, ""),
       },
