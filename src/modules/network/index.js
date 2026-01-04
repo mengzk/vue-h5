@@ -15,6 +15,7 @@ export function request({
   path,
   tag = "api",
   method = "GET",
+  requestType = 'form',
   params = {},
   headers = {},
   toast = true,
@@ -31,6 +32,7 @@ export function request({
     let result = null;
     const options = {
       method,
+      requestType,
       url: getDomainFromTag(tag, path),
       data: mergeParams(params),
       headers: mergeHeaders(headers),

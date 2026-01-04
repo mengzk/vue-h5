@@ -21,8 +21,19 @@ export async function httpClient(options) {
     delete options.data;
   }
   // 下载文件
-  if (options.isFile) {
+  if (options.requestType == 'blob') {
     options.responseType = "arraybuffer";
+  }else if (options.requestType == "form" && options.data) {
+    let body = new FormData();
+    for (const key in options.data) {
+      const value = object[key];
+      body.append(key, options.data[value]);
+    }
+    options.data = body;
+    options.headers = {
+      ...options.headers,
+      "Content-Type": "multipart/form-data",
+    };
   }
   return instance
     .request(options)
