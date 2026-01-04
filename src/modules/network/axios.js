@@ -17,7 +17,7 @@ export async function httpClient(options) {
       const value = object[key];
       body.append(key, options.data[value]);
     }
-    options.formData = body;
+    options.data = body;
     options.headers = {
       ...options.headers,
       "Content-Type": "multipart/form-data",
