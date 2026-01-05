@@ -1,36 +1,79 @@
+/**
+ * Author: Meng
+ * Date: 2025-05-08
+ * Modify: 2025-05-08
+ * Desc:
+ */
 import axios from "axios";
+import { downloadFile } from "./file";
 
 const instance = axios.create({
-  timeout: 30000,
+  timeout: 20000,
+  withCredentials: true, // 允许携带跨域 Cookie
   headers: { "Content-Type": "application/json; charset=utf-8" },
 });
-// 拦截器
 
 // 请求事例
 export async function httpClient(options) {
-  if (options.method == "GET") {
+  // console.log('---> options', options)
+  if (options.method == "GET" || options.method == "DELETE") {
     options.params = options.data;
     delete options.data;
   }
-  if (options.requestType == "form" && options.data) {
+  // 下载文件
+  if (options.requestType == 'blob') {
+    options.responseType = "arraybuffer";
+  }else if (options.requestType == "form" && options.data) {
     let body = new FormData();
     for (const key in options.data) {
       const value = object[key];
       body.append(key, options.data[value]);
     }
-    options.formData = body;
+    options.data = body;
     options.headers = {
       ...options.headers,
-      "Content-Type": "multipart/form-data"
-    }
+      "Content-Type": "multipart/form-data",
+    };
   }
-  // console.log("options--->", options);
-
   return instance
     .request(options)
     .then((response) => {
+      // console.log('---> response', response.data)
+      if (options.requestType == 'blob' && response.data) {
+        const disposition = response.headers["content-disposition"];
+        const contentType = response.headers["content-type"];
+        const isFileStream =
+          (disposition && disposition.includes("attachment")) ||
+          (contentType && !contentType.includes("application/json"));
+        let code = 0;
+        let message = "下载成功";
+
+        let fileName = options.fileName || "downloaded_file";
+        if (disposition && disposition.indexOf("attachment") !== -1) {
+          const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+          const matches = filenameRegex.exec(disposition);
+          if (matches != null && matches[1]) {
+            fileName = decodeURIComponent(matches[1].replace(/['"]/g, ""));
+          }
+        }
+        if (isFileStream) {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          downloadFile(url, fileName);
+        } else {
+          const resText = new TextDecoder("utf-8").decode(response.data);
+          let resJson = null;
+          try {
+            resJson = JSON.parse(resText);
+            code = resJson?.code || 1;
+            message = resJson?.msg || "文件下载失败";
+          } catch (e) {
+            resJson = null;
+          }
+        }
+        return { code, message, data: null };
+      }
       const code = response.status;
-      if (code == 200) {
+      if (response.status > 199 && response.status < 300) {
         return response.data;
       } else {
         const message = parseErr(code);
@@ -39,6 +82,7 @@ export async function httpClient(options) {
     })
     .catch((err) => {
       let message = "";
+      let code = -1010;
       if (err.response) {
         message =
           err.response.data.message ||
@@ -46,15 +90,30 @@ export async function httpClient(options) {
           err.response.statusText ||
           err.message ||
           "服务异常，请检查网络";
-        console.warn("http response error:", err.response.data || err.response);
+        code = err.response.status || -1010;
+        if (err.response.status === 401) {
+          message = "账号未登录，请重新登录";
+        } else if (err.response.status === 403) {
+          message = "没有权限访问该资源";
+        } else if (err.response.status === 404) {
+          message = "请求地址不存在";
+        } else if (err.response.status === 500) {
+          message = "服务器内部错误，请稍后再试";
+        }
+        if (err.response.data) {
+          code = err.response.data.code || code;
+          message = err.response.data.msg || message;
+        }
+        console.log("response error:", err.response.data);
       } else if (err.request) {
-        message = err.message;
-        console.warn("http request error:", err);
+        message = err?.message || "请求超时，请稍后再试";
+        console.log("request error2:", err);
       } else {
         message = err.message || "网络异常，请检查网络连接";
-        console.warn("http client error:", err.message);
+        console.log("client error3:", err.message);
       }
-      return { code: -1010, message, data: null };
+
+      return { code, message, data: null };
     });
 }
 
@@ -62,9 +121,10 @@ function parseErr(code) {
   let message = "";
   switch (code) {
     case 0:
-      message = `${
-        code == "econnaborted" ? "请求超时" : "网络异常"
-      }，请重新连接`;
+      message = "网络异常，请重新连接";
+      break;
+    case 401:
+      message = "账号未登录";
       break;
     case 403:
       message = "请求地址不能访问";
@@ -85,7 +145,8 @@ function parseErr(code) {
       message = "网关连接超时, 请稍后";
       break;
     default:
-      message = `抱歉, 请求失败:${code}`;
+      message = `抱歉, 请求失败: ${code}`;
       break;
   }
+  return message;
 }
