@@ -20,8 +20,9 @@ export async function httpClient(options) {
     options.params = options.data;
     delete options.data;
   }
+  const isFile = options.requestType == 'blob';
   // 下载文件
-  if (options.requestType == 'blob') {
+  if (isFile) {
     options.responseType = "arraybuffer";
   }else if (options.requestType == "form" && options.data) {
     let body = new FormData();
@@ -39,7 +40,7 @@ export async function httpClient(options) {
     .request(options)
     .then((response) => {
       // console.log('---> response', response.data)
-      if (options.isFile && response.data) {
+      if (isFile && response.data) {
         const disposition = response.headers["content-disposition"];
         const contentType = response.headers["content-type"];
         const isFileStream =
@@ -104,13 +105,13 @@ export async function httpClient(options) {
           code = err.response.data.code || code;
           message = err.response.data.msg || message;
         }
-        console.log("response error:", err.response.data);
+        console.warn("response error:", err.response.data);
       } else if (err.request) {
         message = err?.message || "请求超时，请稍后再试";
-        console.log("request error2:", err);
+        console.warn("request error2:", err);
       } else {
         message = err.message || "网络异常，请检查网络连接";
-        console.log("client error3:", err.message);
+        console.warn("client error3:", err.message);
       }
 
       return { code, message, data: null };
