@@ -134,32 +134,62 @@ routers.beforeEach(async (to, from, next) => {
   }
 
   // 如果是第一次访问菜单路由，则初始化菜单
-  if (!isExist && !initMenu) {
+  // if (!isExist && !initMenu) {
+  //   const menuStore = useMenuStore();
+  //   const menus = await menuStore.queryMenu(); // 查询菜单
+  //   if (!menus || menus.length === 0) {
+  //     console.warn("菜单路由为空，请检查菜单配置");
+  //     return next({ name: "Denied" });
+  //   }
+
+  //   initMenu = true;
+  //   console.log("---> 菜单路由：", menus);
+
+  //   // 添加菜单路由
+  //   menus.forEach((route) => {
+  //     routers.addRoute(route);
+  //   });
+
+  //   next({ ...to, replace: true }); // 重新导航到当前路由
+  //   return;
+  // } else {
+  //   isExist = hasRoute(to.path);
+
+  //   if (!isExist) {
+  //     console.warn(`路由 ${to.path} 不存在`);
+  //     return next({ name: "NotFound" });
+  //   }
+  //   next();
+  // }
+  if (isExist) {
+    next();
+  } else if (!initMenu) {
     const menuStore = useMenuStore();
     const menus = await menuStore.queryMenu(); // 查询菜单
-    if (!menus || menus.length === 0) {
+    initMenu = true;
+
+    if (menus && menus.length > 1) {
+      // 添加菜单路由
+      menus.forEach((route) => {
+        routers.addRoute(route);
+        if (!isExist) {
+          isExist = hasRoute(route.path);
+        }
+      });
+
+      if (isExist) {
+        next({ ...to, replace: true }); // 重新导航到当前路由
+      } else {
+        console.warn("菜单路由为空，请检查菜单配置");
+        return next({ name: "Denied" });
+      }
+    } else {
       console.warn("菜单路由为空，请检查菜单配置");
       return next({ name: "Denied" });
     }
-
-    initMenu = true;
-    console.log("---> 菜单路由：", menus);
-
-    // 添加菜单路由
-    menus.forEach((route) => {
-      routers.addRoute(route);
-    });
-
-    next({ ...to, replace: true }); // 重新导航到当前路由
-    return;
   } else {
-    isExist = hasRoute(to.path);
-
-    if (!isExist) {
-      console.warn(`路由 ${to.path} 不存在`);
-      return next({ name: "NotFound" });
-    }
-    next();
+    console.warn(`路由 ${to.path} 不存在`);
+    return next({ name: "NotFound" });
   }
 });
 
