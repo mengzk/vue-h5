@@ -52,19 +52,21 @@ export default defineConfig(({ command, mode }) => {
       strictPort: false,
       proxy: {
         // "/api": {
-        //   target: "https://aim.com",
         //   changeOrigin: true,
+        //   target: env.VITE_PROXY_API,
         //   rewrite: (path) => path.replace(/^\/api/, ""),
         // },
         "/care": {
-          target: "https://aimlai.com/healthcare",
           changeOrigin: true,
+          target: env.VITE_PROXY_CARE,
+          // target: "https://aimlai.com/care",
           rewrite: (path) => path.replace(/^\/care/, ""),
         },
-        "/ark": {
-          target: "https://ark.cn-beijing.volces.com/api",
+        "/auth": {
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/ark/, ""),
+          target: env.VITE_PROXY_AUTH,
+          // target: "https://volces.com/auth",
+          rewrite: (path) => path.replace(/^\/auth/, ""),
         },
       },
       hmr: {
