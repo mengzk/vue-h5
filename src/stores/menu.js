@@ -8,6 +8,7 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 
 import menuRouter from "@/router/menu"; // 导入解析路由的函数
+import tabRouter from "@/router/tab"; // 导入解析路由的函数
 
 let isLoaded = false; // 是否已加载过菜单
 const useMenuStore = defineStore("app-menu", () => {
@@ -24,8 +25,8 @@ const useMenuStore = defineStore("app-menu", () => {
     isLoaded = true; // 标记菜单已加载
     // 获取路由列表
 
-    setMenu(parseRouter(menuRouter));
-    return menuRouter;
+    setMenu(parseRouter(tabRouter));
+    return tabRouter;
   }
 
   // function getMenuFormRouter(list) {

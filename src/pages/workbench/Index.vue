@@ -8,7 +8,7 @@
       </template>
     </div>
     <!-- <Map /> -->
-    <Map3D />
+    <!-- <Map3D /> -->
   </div>
 </template>
 
