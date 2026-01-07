@@ -7,12 +7,17 @@
         </div>
       </template>
     </div>
+    <!-- <Map /> -->
+    <Map3D />
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+
+import Map from '@/modules/libs/echarts/map.vue'
+import Map3D from '@/modules/libs/echarts/map3d.vue'
 
 const router = useRouter();
 
