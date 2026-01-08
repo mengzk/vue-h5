@@ -1,5 +1,7 @@
 <template>
   <div class="workbench">
+    <!-- <Map /> -->
+    <Map3D />
     <div class="grid">
       <template v-for="item in itemList" :key="item.path">
         <div class="item">
@@ -7,8 +9,6 @@
         </div>
       </template>
     </div>
-    <!-- <Map /> -->
-    <!-- <Map3D /> -->
   </div>
 </template>
 

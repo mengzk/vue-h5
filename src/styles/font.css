@@ -217,7 +217,9 @@
 .tg1 {
   font-size: 28px;
   font-weight: 500;
-  background: linear-gradient(299deg, #ffd8b9 5%, #dd9804 83%);
+  color: transparent;
+  background: linear-gradient(299deg, #ffd8b9, #dd9804);
+  /* background: linear-gradient(to bottom, #ffd8b9, #dd9804); */
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
