@@ -7,6 +7,7 @@ const instance = axios.create({
 
 // 请求事例
 export async function httpClient(options) {
+  options.method = options.method.toUpperCase();
   if (options.method == "GET") {
     options.params = options.data;
     delete options.data;
@@ -29,31 +30,38 @@ export async function httpClient(options) {
     .request(options)
     .then((response) => {
       const code = response.status;
-      if (code == 200) {
-        return response.data;
+      if (199 < code && code < 300) {
+        return {success: true, ...response.data};
       } else {
         const message = parseErr(code);
-        return { code, message, data: null };
+        return { code, message, success: false, data: null };
       }
     })
     .catch((err) => {
+      let status = -21;
       let message = "";
       if (err.response) {
-        message =
-          err.response.data.message ||
-          err.response.message ||
-          err.response.statusText ||
-          err.message ||
-          "服务异常，请检查网络";
-        console.warn("http response error:", err.response.data || err.response);
+        const res3 = err.response;
+        if(res3.data) {
+          status = res3.data.code || res3.status || -22;
+          if(res3.data.message) {
+            msg = res3.data.message;
+          }else {
+            message = parseErr(status);
+          }
+        }else {
+          status = res3.status || -23;
+          message = parseErr(status);
+        }
+        // console.warn("http response error:", err.response.data || err.response);
       } else if (err.request) {
-        message = err.message;
+        message = err.message || '请求超时，请稍后重试！';
         console.warn("http request error:", err);
       } else {
         message = err.message || "网络异常，请检查网络连接";
         console.warn("http client error:", err.message);
       }
-      return { code: -1010, message, data: null };
+      return { code: -1010, success: false, message, data: null };
     });
 }
 
