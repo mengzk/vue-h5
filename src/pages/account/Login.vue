@@ -2,13 +2,13 @@
   <div class="page login">
     <img class="bg" :src="bgUrl" alt="Login Background" />
     <div class="content">
-      <h1>登录</h1>
-      <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
+      <h1 class="title">登录</h1>
+      <el-form ref="formRef" :model="form" :rules="rules">
         <el-form-item class="form-item" label="用户名" prop="account">
-          <el-input class="input" v-model="form.account" placeholder="请输入用户名" />
+          <el-input class="input" v-model="form.account" maxlength="20" placeholder="请输入用户名" />
         </el-form-item>
         <el-form-item class="form-item" label="密码" prop="password">
-          <el-input class="input" type="password" v-model="form.password" placeholder="请输入密码" />
+          <el-input class="input" type="password" v-model="form.password" maxlength="20" placeholder="请输入密码" />
         </el-form-item>
         <el-row class="form-check" part="remember">
           <el-checkbox v-model="form.remember">记住我</el-checkbox>
@@ -109,10 +109,11 @@ function onForget() {
 }
 
 .content {
-  width: 450px;
-  height: 600px;
+  /* width: 450px; */
+  /* height: 600px; */
   z-index: 1;
   right: 10%;
+  padding: 32px 32px;
   border-radius: 16px;
   position: absolute;
   display: flex;
@@ -121,31 +122,35 @@ function onForget() {
   justify-content: center;
   background-color: white;
 }
-
+.title {
+  margin-bottom: 32px;
+}
 .form-item {
-  width: 360px;
-  margin-top: 24px;
+  width: 300px;
+  margin-top: 20px;
 }
 
 .input {
-  width: 360px;
+  width: 300px;
   height: 40px;
   border-radius: 4px;
 }
 
 .form-check {
-  width: 360px;
-  margin-top: 12px;
+  width: 300px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
 .btn-group {
-  margin-top: 36px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .btn1 {
-  flex: 1;
+  width: 120px;
   height: 40px;
   border-radius: 8px;
 }

@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <h1>回到家就</h1>
+  <div class="frame-header">
+    <h1>这是tab拦</h1>
+    <div>-----</div>
+    <div>
+      <span>哈哈户</span>
+    </div>
   </div>
   <!-- 路由动画 -->
   <div class="frame-layout">
@@ -40,6 +44,12 @@ function onMenuClick(menu) {
 </script>
 
 <style scoped>
+  .frame-header {
+    height: 68px;
+    padding: 0 26px;
+    display: flex;
+    align-items: center;
+  }
 .frame-layout {
   flex: 1;
   height: calc(100vh - var(--header-height));
