@@ -91,6 +91,12 @@ const routers = createRouter({
       meta: { title: "404", hidden: true },
       component: () => import("../pages/warn/Notfound.vue"),
     },
+    {
+      path: "/map-test",
+      name: "MapTest",
+      meta: { title: "地图测试" },
+      component: () => import("../pages/map/TestMap.vue"),
+    },
   ],
 });
 
