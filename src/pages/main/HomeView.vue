@@ -45,17 +45,17 @@ function gotoAi() {
 
 <style scoped>
 .home {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .home-back {
   z-index: 9;
-  width: 100px;
-  height: 100px;
-  margin: 80px 56px 80px 80px;
-  border-radius: 40px;
+  width: 6.25rem;
+  height: 6.25rem;
+  margin: 5rem 3.5rem 5rem 5rem;
+  border-radius: 2.5rem;
   position: absolute;
   display: flex;
   align-items: center;
@@ -64,13 +64,13 @@ function gotoAi() {
 }
 
 .back-icon {
-  width: 70px;
-  height: 70px;
+  width: 4.375rem;
+  height: 4.375rem;
 }
 
 .value-box {
   flex: 1;
-  min-height: 300px;
+  min-height: 18.75rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -78,29 +78,79 @@ function gotoAi() {
 }
 
 .value-box span:not(:first-child) {
-  margin-top: 30px;
+  margin-top: 1.875rem;
 }
 
 .value-text {
-  /* text-align: center; */
   font-weight: 500;
-  font-size: 60px;
+  font-size: 3.75rem;
   line-height: 1;
   color: var(--text);
-  max-height: 180px;
+  max-height: 11.25rem;
   overflow-y: hidden;
 }
 
 .float-btn {
   position: fixed;
-  bottom: 80px;
-  right: 80px;
-  width: 120px;
-  height: 120px;
+  bottom: 5rem;
+  right: 5rem;
+  width: 7.5rem;
+  height: 7.5rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--theme);
+}
+
+/* 响应式调整 */
+@media (max-width: 767px) {
+  .home-back {
+    width: 4.375rem;
+    height: 4.375rem;
+    margin: 3.125rem 2.1875rem 3.125rem 3.125rem;
+    border-radius: 1.75rem;
+  }
+
+  .back-icon {
+    width: 3.125rem;
+    height: 3.125rem;
+  }
+
+  .value-text {
+    font-size: 2.5rem;
+  }
+
+  .float-btn {
+    bottom: 3.125rem;
+    right: 3.125rem;
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .home-back {
+    width: 5rem;
+    height: 5rem;
+    margin: 3.75rem 2.5rem 3.75rem 3.75rem;
+    border-radius: 2rem;
+  }
+
+  .back-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .value-text {
+    font-size: 3rem;
+  }
+
+  .float-btn {
+    bottom: 3.75rem;
+    right: 3.75rem;
+    width: 6rem;
+    height: 6rem;
+  }
 }
 </style>
