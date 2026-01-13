@@ -1,11 +1,10 @@
-# vue-demo
-Vue 3 in Vite.  element-plus
+# 项目说明
+Vue3，Vite. element-plus
 
-## Recommended IDE Setup
+未登录采用静态模版网站
+登陆之后跳到管理后台
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
+## 配置及文档
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
