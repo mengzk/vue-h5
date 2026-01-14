@@ -1,10 +1,5 @@
 <template>
-  <div class="page home">
-    <div>头部轮播产品区</div>
-    <div>平台宣传图列表竖向长列</div>
-    <div>用户使用数据</div>
-    <div>应用场景</div>
-    <div>合作电话</div>
+  <div class="page about">
   </div>
 </template>
 
@@ -15,8 +10,7 @@ onMounted(() => {});
 </script>
 
 <style scoped>
-.home {
-  height: 100vh;
+.about {
   display: flex;
   flex-direction: column;
 }

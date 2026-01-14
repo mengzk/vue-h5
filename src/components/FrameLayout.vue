@@ -1,6 +1,6 @@
 <template>
   <div class="frame-header">
-    <h1>这是tab拦</h1>
+    <h3>这是tab拦</h3>
     <div>-----</div>
     <div>
       <span>哈哈户</span>
@@ -44,27 +44,25 @@ function onMenuClick(menu) {
 </script>
 
 <style scoped>
-  .frame-header {
-    height: 68px;
-    padding: 0 26px;
-    display: flex;
-    align-items: center;
-  }
+.frame-header {
+  z-index: 999;
+  height: var(--header-height);
+  padding: 0 26px;
+  display: flex;
+  align-items: center;
+  background-color: var(--header-bg);
+}
+
 .frame-layout {
-  flex: 1;
   height: calc(100vh - var(--header-height));
   display: flex;
   flex-direction: column;
-  overflow: auto;
 
   scrollbar-width: none;
-  /* Firefox */
   -ms-overflow-style: none;
-  /* Internet Explorer and Edge */
 }
 
 .frame-layout::-webkit-scrollbar {
   display: none;
-  /* Chrome, Safari and Opera */
 }
 </style>

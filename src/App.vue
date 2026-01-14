@@ -19,14 +19,13 @@ onMounted(async () => {
   const res = getUrlParams();
   console.log("---> query", res);
 
+  // 启动应用
+  await launchApp();
   // 初始化-信息
   const timer = setTimeout(() => {
     inited.value = true;
     clearTimeout(timer);
   }, 1000);
-
-  // 启动应用
-  await launchApp();
 });
 </script>
 

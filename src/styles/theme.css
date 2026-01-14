@@ -1,15 +1,15 @@
 /* semantic color variables for this project */
 :root {
-  --theme: #3579F6;
-  --theme-bg: #3579f610;
-  --bg: #f5f6f3;
+  --theme: #212326;
+  --theme-bg: #212326;
+  --bg: #212326;
   --card: rgba(255, 255, 255, 0.1);
   --line: rgba(255, 255, 255, 0.3);
 
   --border: #e0e0e0;
 
-  --title: #232323;
-  --sutitle: #454647;
+  --title: #ffffff;
+  --sutitle: #cccccc;
   --date-text: #989697;
   --hint-text: #989697;
 
@@ -22,9 +22,8 @@
   --lg: linear-gradient(90deg, #2EE56B 0%, #E5C72E 50%, #E52E2E 100%);
 
   /* --header-color: #3579F6; */
-  --header-color: #ffffff;
-  --header-height: 60px;
-  --toolbar-height: 60px;
+  --header-bg: #18191B;
+  --header-height: 67px;
 
   --menu-width: 239px;
 }
@@ -56,4 +55,21 @@ matchMedia('(prefers-color-scheme: dark)').matches
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+::-webkit-scrollbar {
+  width: 0px;           /* 垂直滚动条宽度 */
+  height: 0px;          /* 水平滚动条高度 */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);  /* 轨道颜色 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);  /* 滚动条颜色 */
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);   /* hover 颜色 */
 }

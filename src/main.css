@@ -9,9 +9,9 @@ body {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  background-color: var(--bg-color);
+  background-color: var(--theme-bg);
 
-  color: var(--text);
+  color: white;
   font-size: 14px;
   font-weight: 400;
   line-height: 1;
