@@ -337,3 +337,21 @@
     flex-direction: column;
   }
 </style>
+<style>
+  .search-wrap .el-select {
+    --el-select-width: 120px;
+    --el-fill-color-blank: #ff6600;
+    --el-input-text-color: #fff;
+    --el-border-color: transparent;
+  }
+  .search-wrap .el-input {
+    --el-input-width: 120px;
+    --el-fill-color-blank: #ff6600;
+  }
+  .search-wrap .el-date-editor {
+    --el-date-editor-width: 120px;
+    --el-fill-color-blank: #ff6600;
+    --el-input-text-color: #fff;
+    --el-border-color: transparent;
+  }
+</style>
