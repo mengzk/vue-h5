@@ -38,14 +38,14 @@ onMounted(() => {
 function init() {
   const div = document.getElementById("homeBox");
   if (!div) return;
-  /**
-   * 监听滚动结束事件, 获取滚动位置
-   * 如果 home-scene 出现在可视区, 则页面切换到 home-scene 
-   * 如果位置 大于 home-scene子元素总高, 则切换到 row-scene 区域
-   */
 
   const homeScene = document.getElementById("homeScene");
   if (!homeScene) return;
+    /**
+     * 监听 homeScene 是否出现在可视区
+     * 如果 home-scene 出现在可视区, 则页面切换到 home-scene 
+     * 如果位置 大于 home-scene子元素总高, 则切换到 row-scene 区域
+     */
    observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -71,6 +71,10 @@ function init() {
   const rowScene = document.getElementById("rowScene");
   if (!rowScene) return;
 
+  /**
+   * 鼠标竖向滚轮转成横向滚动
+   * 核心思路：监听 wheel 事件，用 deltaY 去改 scrollLeft ，并阻止默认竖滚行为
+   */
   onWheel = (e) => {
     // 只处理竖向滚动量
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && div.scrollTop > (window.screen.height - 67)*2) {
