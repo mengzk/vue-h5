@@ -1,111 +1,183 @@
 <template>
-  <div class="page home">
-    <img class="home-banner" :src="bg" />
-    <div class="home-intro">宣传图</div>
-    <div class="home-data"></div>
-    <div class="home-scene">
-      <div class="scene scene1">竖向整屏滑动1</div>
-      <div class="scene scene2">竖向整屏滑动2</div>
-      <div class="scene scene3">竖向整屏滑动3</div>
-      <div class="scene scene4">竖向整屏滑动4</div>
+  <div class="page-layout">
+    <!-- 左侧：可以滚动的内容区 -->
+    <div class="page-main" ref="scrollEl">
+      <section v-for="(block, index) in sections" :key="block.key" class="page-section" :data-index="index">
+        <h2>{{ block.title }}</h2>
+        <p>{{ block.desc }}</p>
+      </section>
     </div>
-    <div class="row-scene">
-      <div class="scene scene2">横向整屏滑动1</div>
-      <div class="scene scene1">横向整屏滑动2</div>
-      <div class="scene scene3">横向整屏滑动3</div>
-      <div class="scene scene4">横向整屏滑动4</div>
+
+    <!-- 右侧：固定的预览 + 滑动条 -->
+    <div class="page-side">
+      <div class="preview">
+        <transition name="fade">
+          <img v-if="currentSection" :key="currentSection.key" :src="currentSection.image" alt="" />
+        </transition>
+      </div>
+
+      <div class="side-progress">
+        <div v-for="(block, index) in sections" :key="block.key" class="progress-dot"
+          :class="{ active: index === activeIndex }" @click="scrollTo(index)" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 
-import bg from "@/assets/imgs/Wallpaper.jpg";
-import bg1 from "@/assets/imgs/Wallpaper1.jpg";
-import bg2 from "@/assets/imgs/Wallpaper2.jpg";
+const sections = [
+  {
+    key: 's1',
+    title: 'AI 成为可信赖的研发伙伴',
+    desc: '大仓库索引、企业级性能、实时更新……',
+    image: '/images/trae-enterprise-1.png'
+  },
+  {
+    key: 's2',
+    title: '全场景适配',
+    desc: 'IDE、插件、CLI，多形态接入现有研发体系。',
+    image: '/images/trae-enterprise-2.png'
+  },
+  {
+    key: 's3',
+    title: '效能可视化',
+    desc: 'AI 生成率、代码量、成本一目了然。',
+    image: '/images/trae-enterprise-3.png'
+  }
+  // ……按需继续加
+];
 
-onMounted(() => { });
+const scrollEl = ref(null);
+const activeIndex = ref(0);
+const currentSection = computed(() => sections[activeIndex.value]);
+
+let observer;
+
+const setupObserver = () => {
+  if (!scrollEl.value) return;
+
+  observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = Number(entry.target.dataset.index || 0);
+          activeIndex.value = index;
+        }
+      });
+    },
+    {
+      root: scrollEl.value, // 只关心左侧滚动容器
+      threshold: 0.6        // 超过 60% 可见就算“当前页”
+    }
+  );
+
+  scrollEl.value
+    .querySelectorAll('.page-section')
+    .forEach(el => observer.observe(el));
+};
+
+const scrollTo = index => {
+  if (!scrollEl.value) return;
+  const list = scrollEl.value.querySelectorAll('.page-section');
+  const target = list[index];
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+};
+
+onMounted(setupObserver);
+
+onBeforeUnmount(() => {
+  observer && observer.disconnect();
+});
 </script>
-
 <style scoped>
-.home {
+.page-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 左侧：可滚动区域 */
+.page-main {
+  flex: 1;
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  /* 一屏一屏吸附 */
+  scroll-behavior: smooth;
+}
+
+.page-section {
+  height: 100vh;
+  scroll-snap-align: start;
+  padding: 80px 60px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  position: relative;
-
-  font-size: 50px;
+  justify-content: center;
 }
 
-.home-banner {
-  top: 67px;
-  left: 0;
-  width: 100vw;
-  height: calc(100vh - 66px);
-  position: fixed;
-  background-color: #FF6600;
+/* 右侧：固定在视口里 */
+.page-side {
+  width: 420px;
+  padding: 40px 40px 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 0;
 }
 
-.home-intro {
-  z-index: 3;
-  width: 100vw;
-  min-height: calc(100vh - 66px);
-  background-color: #FF0066;
+/* 设备预览图区域 */
+.preview {
+  width: 100%;
+  height: 70vh;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #05060a;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.home-data {
-  z-index: 3;
-  width: 100vw;
-  min-height: calc(100vh - 66px);
-  background-color: transparent;
-  /* background-color: #6600FF; */
+.preview img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
 }
 
-.home-scene {
-  z-index: 3;
-  width: 100vw;
-  min-height: calc(100vh - 66px);
-
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
-.row-scene {
-  z-index: 3;
-  width: 100vw;
-  min-height: calc(100vh - 66px);
+/* 右侧竖向进度条 */
+.side-progress {
+  margin-top: 24px;
   display: flex;
-  overflow-y: hidden;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-}
-.scene {
-  min-width: 100vw;
-  height: calc(100vh - 66px);
-  scroll-snap-align: start;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.scene1 {
-  background-color: #00FF66;
+.progress-dot {
+  width: 6px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.scene2 {
-  background-color: #FF6600;
+.progress-dot.active {
+  background: #3579f6;
+  height: 40px;
 }
 
-.scene3 {
-  background-color: #0066FF;
+/* 图片淡入淡出效果 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
 }
 
-.scene4 {
-  background-color: #FF0066;
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
