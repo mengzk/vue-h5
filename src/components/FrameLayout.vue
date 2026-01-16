@@ -35,7 +35,6 @@ const curMenu = computed(() => {
 
 const menuList = ref([]);
 
-
 // 菜单点击事件
 function onMenuClick(menu) {
   // console.log("Menu clicked:", menu);
@@ -46,6 +45,8 @@ function onMenuClick(menu) {
 <style scoped>
 .frame-header {
   z-index: 999;
+  /* top: 0;
+  position: sticky; */
   height: var(--header-height);
   padding: 0 26px;
   display: flex;
@@ -57,9 +58,6 @@ function onMenuClick(menu) {
   height: calc(100vh - var(--header-height));
   display: flex;
   flex-direction: column;
-
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }
 
 .frame-layout::-webkit-scrollbar {

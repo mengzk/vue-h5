@@ -18,7 +18,7 @@ const tabRouter = [
         path: "",
         name: "Workbench",
         meta: { transition: "slide-left", title: "工作台" },
-        component: () => import("../pages/website/Home1.vue"),
+        component: () => import("../pages/website/Home.vue"),
       },
     ],
   },
