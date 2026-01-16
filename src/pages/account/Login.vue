@@ -2,26 +2,38 @@
   <div class="page login">
     <img class="bg" :src="bgUrl" alt="Login Background" />
     <div class="content">
-      <h1>登录</h1>
-      <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item class="form-item" label="用户名" prop="account">
-          <el-input class="input" v-model="form.account" placeholder="请输入用户名" />
+      <h1 class="title">账号登录</h1>
+      <el-form class="login-form" ref="formRef" :model="form" :rules="rules">
+        <el-form-item label="用户名" prop="account">
+          <el-input
+            v-model="form.account"
+            maxlength="20"
+            placeholder="请输入用户名"
+          />
         </el-form-item>
-        <el-form-item class="form-item" label="密码" prop="password">
-          <el-input class="input" type="password" v-model="form.password" placeholder="请输入密码" />
+        <el-form-item label="密码" prop="password">
+          <el-input
+            type="password"
+            v-model="form.password"
+            maxlength="20"
+            placeholder="请输入密码"
+          />
         </el-form-item>
-        <el-row class="form-check" part="remember">
+        <div class="code-box">
+          <el-form-item label="验证码" prop="code">
+            <el-input maxlength="6" placeholder="请输入验证码" />
+          </el-form-item>
+          <img class="code-img" />
+        </div>
+        <div class="form-check">
           <el-checkbox v-model="form.remember">记住我</el-checkbox>
-          <span class="forget" @click="onForget">忘记密码？</span>
-        </el-row>
-        <!-- <el-row>
-          <el-button type="text">扫码登录</el-button>
-        </el-row> -->
-        <el-row class="btn-group">
-          <el-button class="btn1" type="primary" @click="onLogin">登 录</el-button>
-          <el-button class="btn1" type="primary" @click="onRegister">注 册</el-button>
-        </el-row>
+          <el-link type="primary" @click="onForget">忘记密码？</el-link>
+        </div>
       </el-form>
+      <div class="btn-group">
+        <el-button class="btn1" type="primary" @click="onLogin">登 录</el-button>
+        <el-button class="btn1" type="primary" @click="onRegister">注 册</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +54,7 @@ const formRef = ref(null);
 const form = ref({
   account: "",
   password: "",
+  code: "",
   remember: false,
 });
 const rules = ref({
@@ -63,9 +76,18 @@ const rules = ref({
       trigger: "blur",
     },
   ],
+  code: [
+    { required: true, message: "请输入验证码", trigger: "blur" },
+    {
+      min: 6,
+      max: 6,
+      message: "密码长度 6 个字符验证码",
+      trigger: "blur",
+    },
+  ],
 });
 
-onMounted(() => { });
+onMounted(() => {});
 
 function onLogin() {
   formRef.value.validate((valid) => {
@@ -109,10 +131,11 @@ function onForget() {
 }
 
 .content {
-  width: 450px;
-  height: 600px;
+  /* width: 450px; */
+  /* height: 600px; */
   z-index: 1;
   right: 10%;
+  padding: 20px 36px;
   border-radius: 16px;
   position: absolute;
   display: flex;
@@ -121,32 +144,72 @@ function onForget() {
   justify-content: center;
   background-color: white;
 }
-
-.form-item {
-  width: 360px;
-  margin-top: 24px;
+.title {
+  color: black;
+  margin-bottom: 32px;
 }
-
-.input {
-  width: 360px;
-  height: 40px;
-  border-radius: 4px;
+.code-box {
+  display: flex;
+  position: relative;
+}
+.code-img {
+  width: 70px;
+  height: 30px;
+  right: 1px;
+  top: 24px;
+  position: absolute;
+  background-color: black;
 }
 
 .form-check {
-  width: 360px;
-  margin-top: 12px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
 .btn-group {
-  margin-top: 36px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .btn1 {
-  flex: 1;
+  width: 120px;
   height: 40px;
   border-radius: 8px;
+}
+</style>
+<style>
+.login-form .el-input {
+  --el-input-width: 260px;
+  --el-input-text-color: #232323;
+  --el-input-border-color: #989796;
+  --el-input-hover-border-color: #ff6600;
+  --el-input-focus-border-color: #ff6600;
+}
+.login-form .el-button {
+  --el-button-text-color: #ffffff;
+  --el-button-bg-color: #ff6600;
+  --el-button-hover-bg-color: #ff6600;
+  --el-button-active-bg-color: #ff6600;
+  --el-button-border-color: transparent;
+  --el-button-hover-border-color: transparent;
+  --el-button-active-border-color: transparent;
+  --el-font-size-base: 16px;
+  --el-button-font-weight: 600;
+  width: 100%;
+  height: 36px;
+}
+.login-form .el-form-item {
+  margin-bottom: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.login-form .el-form-item__label {
+  height: 24px;
+  line-height: 24px;
+}
+.code-box .el-form-item {
+  margin-bottom: 8px;
 }
 </style>
