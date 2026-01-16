@@ -23,6 +23,7 @@
           <el-form-item label="验证码" prop="code">
             <el-input maxlength="6" placeholder="请输入验证码" />
           </el-form-item>
+          <img class="code-img" />
         </div>
         <div class="form-check">
           <el-checkbox v-model="form.remember">记住我</el-checkbox>
@@ -147,7 +148,18 @@ function onForget() {
   color: black;
   margin-bottom: 32px;
 }
-
+.code-box {
+  display: flex;
+  position: relative;
+}
+.code-img {
+  width: 70px;
+  height: 30px;
+  right: 1px;
+  top: 24px;
+  position: absolute;
+  background-color: black;
+}
 .form-check {
   display: flex;
   align-items: center;

@@ -32,8 +32,8 @@ export async function httpClient(options) {
     }
     options.data = body;
     options.headers = {
-      ...options.headers,
       "Content-Type": "multipart/form-data",
+      ...options.headers,
     };
   }
   return instance
