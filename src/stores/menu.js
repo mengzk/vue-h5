@@ -12,7 +12,11 @@ import FrameLayout from "@/components/FrameLayout.vue";
 import menuRouter from "@/router/menu"; // 导入解析路由的函数
 import tabRouter from "@/router/tab"; // 导入解析路由的函数
 
+// 1. 预先获取所有页面组件的映射 { path: () => import(...) }
+const modules = import.meta.glob('../pages/**/*.vue');
+
 let isLoaded = false; // 是否已加载过菜单
+
 const useMenuStore = defineStore("app-menu", () => {
   const curMenu = ref(""); // 当前菜单
   const menuList = ref([]);
@@ -61,8 +65,9 @@ const useMenuStore = defineStore("app-menu", () => {
 function parseRouter(list, path) {
   const menu = [];
   list.forEach((item) => {
-    if (item.children && item.children.length > 1) {
-      const children = parseRouter(item.children, item.path);
+    let children = item.children || [];
+    if (children.length > 1) {
+       children = parseRouter(children, item.path);
       menu.push({
         meta: item.meta,
         path: item.path,
@@ -71,7 +76,8 @@ function parseRouter(list, path) {
         component: FrameLayout
       });
     } else {
-      const meta = item.meta || {};
+      const child = children[0] || item;
+      const meta = child.meta || {};
       if (meta.hidden) {
         return; // 如果菜单被隐藏，则不添加到菜单列表
       }
@@ -83,12 +89,16 @@ function parseRouter(list, path) {
       // https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations
       // const component = () => import(`../pages/${pathArr[0]}/${pathArr[1]}.vue`);
 
-      const component = () => import(item.component);
+      const component = modules[child.component];
+      if(!component) {
+        console.warn(`未找到组件 ${child.component}`);
+        // return;
+      }
 
       menu.push({
         meta,
         path: itemPath,
-        name: item.name,
+        name: child.name,
         component
       });
     }

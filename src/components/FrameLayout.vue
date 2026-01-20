@@ -34,6 +34,7 @@ const curMenu = computed(() => {
 });
 
 const menuList = ref([]);
+const keepAliveExclude = ["Login", "Register", "ResetPassword", "NotFound"];
 
 // 菜单点击事件
 function onMenuClick(menu) {
