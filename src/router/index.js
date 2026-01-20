@@ -166,6 +166,7 @@ routers.beforeEach(async (to, from, next) => {
   } else if (!initMenu) {
     const menuStore = useMenuStore();
     const menus = await menuStore.queryMenu(); // 查询菜单
+    // console.log(menus)
     initMenu = true;
 
     if (menus && menus.length > 1) {

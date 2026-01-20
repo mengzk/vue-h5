@@ -30,6 +30,7 @@ app.mount("#app");
 app.config.errorHandler = (err, instance, info) => {
   // 向追踪服务报告错误
   console.log("---> error handler");
+  // err.message, err.stack, instance.$options.name
   console.warn(err, instance, info);
 };
 console.log("---> env", import.meta.env);

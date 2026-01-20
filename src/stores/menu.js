@@ -2,10 +2,12 @@
  * Author: Meng
  * Date: 2025-06-16
  * Modify: 2025-06-16
- * Desc:
+ * Desc: 
  */
 import { ref } from "vue";
 import { defineStore } from "pinia";
+
+import FrameLayout from "@/components/FrameLayout.vue";
 
 import menuRouter from "@/router/menu"; // 导入解析路由的函数
 import tabRouter from "@/router/tab"; // 导入解析路由的函数
@@ -24,9 +26,9 @@ const useMenuStore = defineStore("app-menu", () => {
     }
     isLoaded = true; // 标记菜单已加载
     // 获取路由列表
-
-    setMenu(parseRouter(tabRouter));
-    return tabRouter;
+    const list = parseRouter(tabRouter);
+    setMenu(list);
+    return list;
   }
 
   // function getMenuFormRouter(list) {
@@ -62,10 +64,11 @@ function parseRouter(list, path) {
     if (item.children && item.children.length > 1) {
       const children = parseRouter(item.children, item.path);
       menu.push({
-        title: item.meta.title,
+        meta: item.meta,
         path: item.path,
         name: item.name,
         children,
+        component: FrameLayout
       });
     } else {
       const meta = item.meta || {};
@@ -76,10 +79,17 @@ function parseRouter(list, path) {
       if (itemPath.lastIndexOf("/") == itemPath.length - 1) {
         itemPath = itemPath.slice(0, -1); // 去掉结尾的斜杠
       }
+      // const pathArr = item.component.split('/');
+      // https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations
+      // const component = () => import(`../pages/${pathArr[0]}/${pathArr[1]}.vue`);
+
+      const component = () => import(item.component);
+
       menu.push({
-        title: meta.title,
+        meta,
         path: itemPath,
         name: item.name,
+        component
       });
     }
   });
