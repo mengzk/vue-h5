@@ -5,16 +5,16 @@
       <template v-for="menu in menuList" :key="menu.name">
         <el-sub-menu v-if="hasChildren(menu)" :index="menu.name">
           <template #title>
-            <span class="rc-menu-text">{{ menu.title }}</span>
+            <span class="rc-menu-text">{{ menu.meta.title }}</span>
           </template>
           <template v-for="child in menu.children" :key="child.name">
             <el-menu-item :index="child.name" @click="onMenuClick(child)">
-              <span class="rc-menu-text2">{{ child.title }}</span>
+              <span class="rc-menu-text2">{{ child.meta.title }}</span>
             </el-menu-item>
           </template>
         </el-sub-menu>
         <el-menu-item v-else :index="menu.name" @click="onMenuClick(menu)">
-          <span class="rc-menu-text">{{ menu.title }}</span>
+          <span class="rc-menu-text">{{ menu.meta.title }}</span>
         </el-menu-item>
       </template>
     </el-menu>

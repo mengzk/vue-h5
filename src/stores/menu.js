@@ -7,9 +7,14 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
+import Container from "@/components/Container.vue";
+
 import menuRouter from "@/router/menu"; // 导入解析路由的函数
 
+// 1. 预先获取所有页面组件的映射 { path: () => import(...) }
+const modules = import.meta.glob('../pages/**/*.vue');
 let isLoaded = false; // 是否已加载过菜单
+
 const useMenuStore = defineStore("app-menu", () => {
   const curMenu = ref(""); // 当前菜单
   const menuList = ref([]);
@@ -23,9 +28,9 @@ const useMenuStore = defineStore("app-menu", () => {
     }
     isLoaded = true; // 标记菜单已加载
     // 获取路由列表
-
-    setMenu(parseRouter(menuRouter));
-    return menuRouter;
+    const list = parseRouter(menuRouter);
+    setMenu(list);
+    return list;
   }
 
   // function getMenuFormRouter(list) {
@@ -58,16 +63,19 @@ const useMenuStore = defineStore("app-menu", () => {
 function parseRouter(list, path) {
   const menu = [];
   list.forEach((item) => {
-    if (item.children && item.children.length > 1) {
-      const children = parseRouter(item.children, item.path);
+    const name = item.name;
+    const meta = item.meta || {};
+    let children = item.children || [];
+    if (children.length > 0) {
+       children = parseRouter(children, item.path);
       menu.push({
-        title: item.meta.title,
+        meta,
+        name,
         path: item.path,
-        name: item.name,
         children,
+        component: Container
       });
     } else {
-      const meta = item.meta || {};
       if (meta.hidden) {
         return; // 如果菜单被隐藏，则不添加到菜单列表
       }
@@ -75,14 +83,26 @@ function parseRouter(list, path) {
       if (itemPath.lastIndexOf("/") == itemPath.length - 1) {
         itemPath = itemPath.slice(0, -1); // 去掉结尾的斜杠
       }
+      // const pathArr = item.component.split('/');
+      // https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations
+      // const component = () => import(`../pages/${pathArr[0]}/${pathArr[1]}.vue`);
+
+      const component = modules[item.component];
+      if(!component) {
+        console.warn(`未找到组件 ${item.component}`);
+        // return;
+      }
+
       menu.push({
-        title: meta.title,
+        meta,
+        name,
         path: itemPath,
-        name: item.name,
+        component
       });
     }
   });
   return menu;
 }
+
 
 export default useMenuStore;
