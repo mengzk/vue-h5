@@ -2,7 +2,7 @@
  * Author: Meng
  * Date: 2025-06-16
  * Modify: 2025-06-16
- * Desc: 
+ * Desc:
  */
 import { ref } from "vue";
 import { defineStore } from "pinia";
@@ -13,7 +13,7 @@ import menuRouter from "@/router/menu"; // 导入解析路由的函数
 import tabRouter from "@/router/tab"; // 导入解析路由的函数
 
 // 1. 预先获取所有页面组件的映射 { path: () => import(...) }
-const modules = import.meta.glob('../pages/**/*.vue');
+const modules = import.meta.glob("../pages/**/*.vue");
 
 let isLoaded = false; // 是否已加载过菜单
 
@@ -25,7 +25,7 @@ const useMenuStore = defineStore("app-menu", () => {
    * 查询菜单
    */
   async function queryMenu() {
-    if(isLoaded) {
+    if (isLoaded) {
       return menuList.value; // 如果菜单已加载，直接返回
     }
     isLoaded = true; // 标记菜单已加载
@@ -65,19 +65,20 @@ const useMenuStore = defineStore("app-menu", () => {
 function parseRouter(list, path) {
   const menu = [];
   list.forEach((item) => {
+    const name = item.name;
+    const meta = item.meta || {};
     let children = item.children || [];
-    if (children.length > 1) {
-       children = parseRouter(children, item.path);
+
+    if (children.length > 0) {
+      children = parseRouter(children, item.path);
       menu.push({
-        meta: item.meta,
+        meta,
+        name,
         path: item.path,
-        name: item.name,
         children,
-        component: FrameLayout
+        component: FrameLayout,
       });
     } else {
-      const child = children[0] || item;
-      const meta = child.meta || {};
       if (meta.hidden) {
         return; // 如果菜单被隐藏，则不添加到菜单列表
       }
@@ -89,17 +90,16 @@ function parseRouter(list, path) {
       // https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations
       // const component = () => import(`../pages/${pathArr[0]}/${pathArr[1]}.vue`);
 
-      const component = modules[child.component];
-      if(!component) {
-        console.warn(`未找到组件 ${child.component}`);
-        // return;
+      const component = modules[item.component];
+      if (!component) {
+        console.warn(`未找到组件 ${item.component}`);
       }
 
       menu.push({
         meta,
+        name,
         path: itemPath,
-        name: child.name,
-        component
+        component,
       });
     }
   });
