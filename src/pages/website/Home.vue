@@ -149,20 +149,30 @@ onMounted(() => {
     // 只处理竖向滚动量
     if (horizontal && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
       const scrollLeft = rowScene.scrollLeft;
-      const offSise = rowScene.scrollLeft - window.innerWidth*2;
-      // console.log(scrollLeft, offSise)
-
-      if((e.deltaY <= 0 && scrollLeft < 1) || (e.deltaY >= 0 && offSise >= 0)) {
-        return
+      // const offSise = rowScene.scrollLeft - window.innerWidth*2;
+      const maxScrollLeft = rowScene.scrollWidth - rowScene.clientWidth;
+      console.log(e.deltaY, scrollLeft, maxScrollLeft)
+      // if((e.deltaY <= 0 && scrollLeft < 1) || (e.deltaY >= 0 && offSise >= 0)) {
+      //   return
+      // }
+      // 向左滚（e.deltaY < 0）且已经到最左边（scrollLeft <= 0）时，不阻止默认行为，让外层向上滚
+      if (e.deltaY < 0 && scrollLeft <= 0) {
+        return;
+      }
+      
+      // 向右滚（e.deltaY > 0）且已经到最右边（scrollLeft >= maxScrollLeft）时，不阻止默认行为，让外层向下滚
+      // 留一点 buffer (>= maxScrollLeft - 1) 防止浮点数误差
+      if (e.deltaY > 0 && scrollLeft >= maxScrollLeft - 1) {
+        return;
       }
       e.preventDefault(); // 阻止默认竖向滚动
-      // console.log(e)
       // 用竖向滚动量控制横向
-      rowScene.scrollBy({
-        top: 0,
-        left: Math.round(e.deltaY/10),
-        // behavior: "smooth",
-      });
+      // rowScene.scrollBy({
+      //   top: 0,
+      //   left: Math.round(e.deltaY/10),
+      //   // behavior: "smooth",
+      // });
+      rowScene.scrollLeft += e.deltaY;
     }
   };
   // passive: false 才能 preventDefault
@@ -197,9 +207,9 @@ onBeforeUnmount(() => {
   display: flex;
   scroll-snap-align: start;
   overflow-x: scroll;
-  scroll-snap-type: x mandatory;
+  /* scroll-snap-type: x mandatory; */
   /* 一屏一屏吸附 */
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
 }
 .page-section {
   width: 100vw;
