@@ -1,10 +1,6 @@
 <template>
   <div class="frame-header">
-    <h3>这是tab拦</h3>
-    <div>-----</div>
-    <div>
-      <span>哈哈户</span>
-    </div>
+    <WebHeader title="标题" />
   </div>
   <!-- 路由动画 -->
   <div class="frame-layout">
@@ -25,6 +21,8 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
+
+import WebHeader from "./WebHeader.vue";
 
 const route = useRoute();
 const router = useRouter();
