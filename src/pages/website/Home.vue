@@ -5,7 +5,7 @@
       <section
         v-for="(block, index) in sections"
         :key="block.key"
-        class="page-section"
+        class="section-item"
         :data-index="index"
       >
         <h2>{{ block.title }}</h2>
@@ -16,7 +16,7 @@
         <section
           v-for="(block, index) in sections2"
           :key="block.key"
-          class="page-section"
+          class="section-item"
           :data-index="index + 3"
         >
           <h2>{{ block.title }}</h2>
@@ -24,7 +24,7 @@
         </section>
       </div>
       <section
-        class="page-section"
+        class="section-item"
         :data-index="6"
       >
         <h2>最后的</h2>
@@ -123,13 +123,13 @@ const setupObserver = () => {
   );
 
   scrollEl.value
-    .querySelectorAll(".page-section")
+    .querySelectorAll(".section-item")
     .forEach((el) => observer.observe(el));
 };
 
 const scrollTo = (index) => {
   if (!scrollEl.value) return;
-  const list = scrollEl.value.querySelectorAll(".page-section");
+  const list = scrollEl.value.querySelectorAll(".section-item");
   const target = list[index];
   if (target) {
     target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -211,7 +211,7 @@ onBeforeUnmount(() => {
   /* 一屏一屏吸附 */
   /* scroll-behavior: smooth; */
 }
-.page-section {
+.section-item {
   width: 100vw;
   height: 100vh;
   min-width: 100vw;

@@ -1,20 +1,30 @@
 <template>
-  <div class="frame-header">
-    <WebHeader title="标题" />
-  </div>
-  <!-- 路由动画 -->
   <div class="frame-layout">
-    <RouterView v-slot="{ Component, route }">
-      <Transition name="slide-fade" mode="out-in" appear>
-        <KeepAlive :max="10" :exclude="keepAliveExclude">
-          <component :is="Component" :key="route.path" v-if="route.meta.keep" />
-        </KeepAlive>
-      </Transition>
+    <div class="frame-header">
+      <WebHeader title="标题" />
+    </div>
+    <!-- 路由动画 -->
+    <div class="frame-router">
+      <RouterView v-slot="{ Component, route }">
+        <Transition name="slide-fade" mode="out-in" appear>
+          <KeepAlive :max="10" :exclude="keepAliveExclude">
+            <component
+              :is="Component"
+              :key="route.path"
+              v-if="route.meta.keep"
+            />
+          </KeepAlive>
+        </Transition>
 
-      <Transition name="slide-fade" mode="out-in" appear>
-        <component :is="Component" :key="route.path" v-if="!route.meta.keep" />
-      </Transition>
-    </RouterView>
+        <Transition name="slide-fade" mode="out-in" appear>
+          <component
+            :is="Component"
+            :key="route.path"
+            v-if="!route.meta.keep"
+          />
+        </Transition>
+      </RouterView>
+    </div>
   </div>
 </template>
 
@@ -42,10 +52,15 @@ function onMenuClick(menu) {
 </script>
 
 <style scoped>
+.frame-layout {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
 .frame-header {
   z-index: 999;
-  /* top: 0;
-  position: sticky; */
+  top: 0;
+  position: sticky;
   height: var(--header-height);
   padding: 0 26px;
   display: flex;
@@ -53,13 +68,14 @@ function onMenuClick(menu) {
   background-color: var(--header-bg);
 }
 
-.frame-layout {
+.frame-router {
   height: calc(100vh - var(--header-height));
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
 }
 
-.frame-layout::-webkit-scrollbar {
+.frame-router::-webkit-scrollbar {
   display: none;
 }
 </style>

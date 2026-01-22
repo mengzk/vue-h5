@@ -67,6 +67,24 @@ export function checkEmail(email) {
   return res.test(email);
 }
 
+/**
+ * 验证IPv4地址
+ * @param {*} ip
+ */
+export function checkIPv4(ip) {
+  const reg = /^((25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)\.){3}(25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)$/;
+  return reg.test(ip);
+}
+
+/**
+ * 验证IPv6地址
+ * @param {*} ip
+ */
+export function checkIPv6(ip) {
+  const reg = /^([\da-fA-F]{1,4}:){7}[\da-fA-F]{1,4}$|^:((:[\da-fA-F]{1,4}){1,7}|:)$|^[\da-fA-F]{1,4}:((:[\da-fA-F]{1,4}){1,6})|:((:[\da-fA-F]{1,4}){1,7}|:)$|^([\da-fA-F]{1,4}:){2}((:[\da-fA-F]{1,4}){1,5}|:)$|^([\da-fA-F]{1,4}:){3}((:[\da-fA-F]{1,4}){1,4}|:)$|^([\da-fA-F]{1,4}:){4}((:[\da-fA-F]{1,4}){1,3}|:)$|^([\da-fA-F]{1,4}:){5}((:[\da-fA-F]{1,4}){1,2}|:)$|^([\da-fA-F]{1,4}:){6}:([\da-fA-F]{1,4}|:)$|^([\da-fA-F]{1,4}:){7}:$/;
+  return reg.test(ip);
+}
+
 // 格式化数字为：xx格式
 export function formatNumber(num) {
   return `${num > 9 ? "" : "0"}${num}`;

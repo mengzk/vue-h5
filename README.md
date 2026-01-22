@@ -4,6 +4,8 @@ Vue3，Vite. element-plus
 未登录采用静态模版网站
 登陆之后跳到管理后台
 
+Vue 3 实现微前端，目前业界最成熟的两个方案是 qiankun 和 MicroApp （京东出品）。对于 Vue 3 项目，更推荐 MicroApp ，因为它基于 WebComponent，侵入性更低，接入更简单，且原生支持 Vite（qiankun 对 Vite 支持需要额外配置）。
+
 ## 配置及文档
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).

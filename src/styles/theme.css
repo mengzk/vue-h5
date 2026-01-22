@@ -1,6 +1,7 @@
 /* semantic color variables for this project */
 :root {
   --theme: #212326;
+  --primary: #212326;
   --theme-bg: #0a0b0c;
   --bg: #18191B;
   --card: rgba(255, 255, 255, 0.1);
