@@ -7,6 +7,7 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 
+import Container from "@/components/Container.vue";
 import FrameLayout from "@/components/FrameLayout.vue";
 
 import menuRouter from "@/router/menu"; // 导入解析路由的函数
@@ -30,7 +31,7 @@ const useMenuStore = defineStore("app-menu", () => {
     }
     isLoaded = true; // 标记菜单已加载
     // 获取路由列表
-    const list = parseRouter(tabRouter);
+    const list = parseRouter(menuRouter);
     setMenu(list);
     return list;
   }
@@ -76,7 +77,7 @@ function parseRouter(list, path) {
         name,
         path: item.path,
         children,
-        component: FrameLayout,
+        component: Container,
       });
     } else {
       let itemPath = path ? `${path}/${item.path}` : item.path;

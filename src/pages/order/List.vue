@@ -1,16 +1,11 @@
 <template>
-  <div class="container category">
+  <div class="page">
     <h2 class="page-title">订单管理</h2>
-    <el-form class="search-wrap" :model="searchForm" ref="searchFormRef">
-      <el-form-item
-        class="search-item"
-        label="关键词:"
-        prop="keyword"
-        style="width: 300px"
-      >
+    <el-form class="search-box3" :model="searchForm" ref="searchFormRef">
+      <el-form-item label="关键词:" prop="keyword" style="width: 300px">
         <el-input v-model="searchForm.keyword" />
       </el-form-item>
-      <el-form-item class="search-item" label="应用状态:" prop="appStatus">
+      <el-form-item label="应用状态:" prop="appStatus">
         <el-select
           v-model="searchForm.appStatus"
           placeholder="全部"
@@ -24,7 +19,7 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item class="search-item" label="创建日期:" prop="date">
+      <el-form-item label="创建日期:" prop="date">
         <el-date-picker
           v-model="searchForm.date"
           type="daterange"
@@ -35,59 +30,37 @@
           :clearable="false"
         />
       </el-form-item>
-      <div class="search-btns">
+      <div class="search-btns3">
         <el-button type="primary" @click="onSearch">查询</el-button>
         <el-button @click="onResetForm">重置</el-button>
       </div>
     </el-form>
 
-    <div class="label-box">
-      <el-button type="primary" @click="onCreate">新建订单</el-button>
+    <div class="action-box3">
+      <el-button type="primary" @click="onCreate">新 建</el-button>
     </div>
-    <div class="table-list">
-      <el-table
-        :data="tableData"
-        stripe
-        header-cell-class-name="table-header"
-        cell-class-name="table-cell"
-      >
+    <div class="list-table3">
+      <el-table :data="tableData" stripe border>
         <el-table-column fixed prop="appCode" label="应用Code" width="120" />
         <el-table-column prop="appName" label="应用名称" min-width="150" />
-        <el-table-column prop="roleList" label="关联角色" min-width="230">
-          <template #default="scope">
-            <div class="tag-layout">
-              <template v-for="(item, idx) in scope.row.roleList" :key="idx">
-                <span class="tag-item">{{ item.roleName }}</span>
-              </template>
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column prop="appStatus" label="应用状态" width="130">
-          <template #default="scope">
-            <el-switch
-              v-model="scope.row.status"
-              size="large"
-              active-text="开"
-              inactive-text="关"
-              inline-prompt
-              @click="onSwitchState(scope.row)"
-            />
-          </template>
-        </el-table-column>
-        <el-table-column prop="creatorFullName" label="创建人" width="150" />
+        <el-table-column prop="creatorName" label="创建人" width="150" />
         <el-table-column prop="createTime" label="创建时间" min-width="200" />
         <el-table-column prop="modifyTime" label="更新时间" min-width="200" />
-        <el-table-column prop="modifierFullName" label="更新人" />
+        <el-table-column prop="modifierName" label="更新人" />
         <el-table-column fixed="right" label="操作" width="150">
           <template #default="scope">
-            <el-button link type="primary" @click="onEdit(scope.row)">编辑</el-button>
-            <el-button link type="danger" @click="onDelAlert(scope.row)">删除</el-button>
+            <el-button link type="primary" @click="onEdit(scope.row)"
+              >编辑</el-button
+            >
+            <el-button link type="danger" @click="onDelAlert(scope.row)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
     </div>
 
-    <div class="list-pagination">
+    <div class="list-pagination3">
       <el-pagination
         v-model:current-page="currentPage"
         v-model:page-size="pageSize"
@@ -174,14 +147,6 @@ function onEdit(row: any) {
   showDialog.value = true;
 }
 
-// 停用切换状态
-function onSwitchState(row: any) {
-  // console.log('switch', row)
-  tableRow.value = row;
-  row.status = !row.status; // 切换状态, 防止点击时状态改变
-  ElMessage.success("功能开发中, 敬请期待！");
-}
-
 // 删除弹窗
 function onDelAlert(row: any) {
   ElMessageBox.confirm("删除之后不可恢复！", "确认删除", {
@@ -236,68 +201,6 @@ async function onUpdate(res: any) {
   background-color: white;
 }
 .page-title {
-  margin-bottom: 24px;
   color: #333;
-}
-
-.search-wrap {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 0 0 0;
-  margin-bottom: 26px;
-}
-.search-item {
-  margin: 8px 24px 8px 0 !important;
-}
-.search-btns {
-  /* position: absolute; */
-  margin: 8px 0;
-  margin-left: auto;
-  display: flex;
-}
-.label-box {
-  display: flex;
-  justify-content: flex-end;
-  margin: 8px 0 20px;
-}
-.table-list {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
-.table-header {
-  font-size: 15px !important;
-  font-weight: 500 !important;
-  color: #232323;
-  background-color: #f3f5fa !important;
-}
-
-.table-cell {
-  padding: 16px 8px !important;
-  font-size: 15px !important;
-}
-
-.list-pagination {
-  display: flex;
-  justify-content: end;
-  margin-top: auto;
-  margin-bottom: 24px;
-}
-.tag-layout {
-  display: flex;
-  flex-wrap: wrap;
-}
-.tag-item {
-  max-width: 150px;
-  margin: 4px 4px;
-  padding: 2px 4px;
-  border-radius: 4px;
-
-  color: #539bff;
-  font-size: 12px;
-  font-weight: 500;
-  background-color: #f0f5ff;
 }
 </style>

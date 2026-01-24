@@ -1,43 +1,65 @@
 <template>
-  <div class="list3">
-    <h2 class="title">租户管理</h2>
-    <el-form class="list-search-box3" :model="searchForm" ref="searchRef">
-      <el-form-item label="关键字" prop="word">
-        <el-input v-model="searchForm.word" maxlenght="20" />
+  <div class="page">
+    <h2 class="page-title">订单管理</h2>
+    <el-form class="search-box3" :model="searchForm" ref="searchFormRef">
+      <el-form-item label="关键词:" prop="keyword" style="width: 300px">
+        <el-input v-model="searchForm.keyword" />
       </el-form-item>
-      <el-form-item label="租户状态:" prop="status">
-        <el-select v-model="searchForm.status" placeholder="请选择">
-          <el-option label="停用" value="1" />
-          <el-option label="启用" value="2" />
+      <el-form-item label="应用状态:" prop="appStatus">
+        <el-select
+          v-model="searchForm.appStatus"
+          placeholder="全部"
+          style="width: 200px"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.key"
+            :label="item.label"
+            :value="item.value"
+          />
         </el-select>
       </el-form-item>
-      <el-form-item label="租户使用到期日期:" prop="date">
+      <el-form-item label="创建日期:" prop="date">
         <el-date-picker
           v-model="searchForm.date"
-          type="date"
-          format="YYYY-MM-DD"
+          type="daterange"
           value-format="YYYY-MM-DD"
-          clearable
+          range-separator="至"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+          :clearable="false"
         />
       </el-form-item>
-      <div class="list-search-btns3">
-        <el-botton type="primary" @click="onSearch">搜索</el-botton>
-        <el-botton @click="onReset">搜索</el-botton>
+      <div class="search-btns3">
+        <el-button type="primary" @click="onSearch">查询</el-button>
+        <el-button @click="onResetForm">重置</el-button>
       </div>
     </el-form>
 
-    <div class="list-action-box3">
-      <el-botton type="primary">新建</el-botton>
+    <div class="action-box3">
+      <el-button type="primary" @click="onCreate">新 建</el-button>
     </div>
     <div class="list-table3">
-      <el-table :data="tableData" stripe @row-click="onRowClick">
-        <el-table-column fixed prop="id" label="ID" width="100px" />
-        <el-table-column fixed prop="name" label="姓名" width="100px" />
-        <el-table-column fixed prop="phone" label="电话" width="100px" />
-        <el-table-column fixed prop="status" label="状态" width="100px" />
-        <el-table-column fixed prop="date" label="日期" width="100px" />
+      <el-table :data="tableData" stripe border>
+        <el-table-column fixed prop="appCode" label="应用Code" width="120" />
+        <el-table-column prop="appName" label="应用名称" min-width="150" />
+        <el-table-column prop="creatorName" label="创建人" width="150" />
+        <el-table-column prop="createTime" label="创建时间" min-width="200" />
+        <el-table-column prop="modifyTime" label="更新时间" min-width="200" />
+        <el-table-column prop="modifierName" label="更新人" />
+        <el-table-column fixed="right" label="操作" width="150">
+          <template #default="scope">
+            <el-button link type="primary" @click="onEdit(scope.row)"
+              >编辑</el-button
+            >
+            <el-button link type="danger" @click="onDelAlert(scope.row)"
+              >删除</el-button
+            >
+          </template>
+        </el-table-column>
       </el-table>
     </div>
+
     <div class="list-pagination3">
       <el-pagination
         v-model:current-page="currentPage"
@@ -49,51 +71,39 @@
         @current-change="onCurrentChange"
       />
     </div>
+
+    <AddApp
+      v-model:show="showDialog"
+      :data="tableRow"
+      @close="showDialog = false"
+      @update="onUpdate"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import { onMounted } from "vue";
-import { ElMessageBox } from "element-plus";
+import { onMounted, ref, reactive } from "vue";
+import { ElMessageBox, ElMessage } from "element-plus";
 
-// const rules = {
-//   name: [
-//     { required: true, message: '请输入角色名称', trigger: 'blur' },
-//     { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
-//   ],
-//   des: [{ required: true, message: '请输入角色描述', trigger: 'blur' }]
-// }
-
-const tableData = [
-  {
-    id: 12,
-    mode: 1,
-    date: "2016-05-03",
-    name: "Tom",
-    cname: "和设计大奖",
-    qname: "上的讲话方式大幅加快建设进度",
-    status: "California",
-    hang: "政府部门",
-    account: "完全卡死你发空间纳斯达克家",
-    endDate: "2026-03-09 23:00:00",
-    createDate: "2026-03-09 23:00:00",
-    createUser: "合适罚款",
-    updateDate: "2026-03-09 23:00:00",
-    updateUser: "合适罚款",
-  },
-];
-
-const searchRef = ref();
+const searchFormRef = ref();
 const searchForm = reactive({
-  word: "",
-  status: "",
-  date: "",
+  keyword: "",
+  appStatus: "",
+  date: [],
 });
 
+const tableData = ref([]);
+const tableRow = ref({}); // 表格行数据
+const showDialog = ref(false); // 弹窗
 const currentPage = ref(1); // 当前页
 const pageSize = ref(20); // 分页
 const total = ref(100); // 总页数
+
+const options = [
+  { key: "0", label: "全部", value: "" },
+  { key: "1", label: "停用", value: 0 },
+  { key: "2", label: "启用", value: 1 },
+];
 
 onMounted(() => {
   loadData();
@@ -112,23 +122,33 @@ function onCurrentChange(val: number) {
 }
 
 // 重置表单
-function onReset() {
-  const formEl = searchRef.value;
+function onResetForm() {
+  const formEl = searchFormRef.value;
   if (formEl) {
     formEl.resetFields();
+
+    onSearch(); // 重置后重新加载数据
   }
 }
 // 搜索
 function onSearch() {
+  currentPage.value = 1;
   loadData();
 }
 
-function onRowClick(res: any) {
-  console.log("click", res);
+function onCreate() {
+  tableRow.value = {}; // 清空编辑行
+  showDialog.value = true; // 显示弹窗
+}
+
+function onEdit(row: any) {
+  // console.log('edit', row)
+  tableRow.value = row;
+  showDialog.value = true;
 }
 
 // 删除弹窗
-function onDeleteAlert() {
+function onDelAlert(row: any) {
   ElMessageBox.confirm("删除之后不可恢复！", "确认删除", {
     confirmButtonClass: "custom-confirm-button",
     confirmButtonText: "确定",
@@ -136,94 +156,52 @@ function onDeleteAlert() {
     type: "error",
   })
     .then(() => {
-      onDelete();
+      onDelete(row.id);
     })
     .catch(() => {
       console.log("取消");
     });
 }
 
+// 停用
+// function onStopUse() {
+//   console.log('停用', tableRow.value)
+// }
+
 // 删除
-async function onDelete() {
-  console.log("删除");
+async function onDelete(id: number) {
+  ElMessage.success("删除成功");
+  loadData(); // 重新加载数据
 }
 
 // 获取数据
 async function loadData() {
-  const params = {
-    page: currentPage.value,
-    size: pageSize.value,
+  const params: any = {
+    pageNum: currentPage.value,
+    pageSize: pageSize.value,
+    createTimeStart: searchForm.date[0],
+    createTimeEnd: searchForm.date[1],
     ...searchForm,
   };
+  delete params.date;
+}
+
+// 更新数据
+async function onUpdate(res: any) {
+  // console.log('更新数据', res)
+  if (!res) {
+    ElMessage.error("更新数据失败");
+    return;
+  }
 }
 </script>
 
 <style scoped>
-.list3 {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+.category {
+  background-color: white;
 }
-.list-search-box3 {
-  display: flex;
-}
-.list-search-btns3 {
-  display: flex;
-  align-items: center;
-}
-.list-action-box3 {
-  display: flex;
-  justify-content: flex-end;
-}
-.list-table3 {
-  flex: 1;
-  display: flex;
-}
-.list-pagination3 {
-  display: flex;
-}
-</style>
-<style>
-.list-search-box3 .el-input {
-  --el-input-width: 130px;
-  --el-input-text-color: #232323;
-  /* --el-border-color: #989796;
-  --el-input-border-color: #989796;
-  --el-input-hover-border-color: #ff6600;
-  --el-input-focus-border-color: #ff6600; */
-}
-.list-search-box3 .el-button {
-  --el-button-text-color: #ffffff;
-  --el-button-bg-color: #ff6600;
-  --el-button-hover-bg-color: #ff6600;
-  --el-button-active-bg-color: #ff6600;
-  --el-button-border-color: transparent;
-  --el-button-hover-border-color: transparent;
-  --el-button-active-border-color: transparent;
-  --el-font-size-base: 16px;
-  --el-button-font-weight: 600;
-  width: 100%;
-  height: 36px;
-}
-.list-search-box3 .el-select {
-  --el-select-width: 130px;
-  /* --el-fill-color-blank: #ff6600; */
-  --el-input-text-color: #232323;
-  /* --el-border-color: transparent; */
-}
-.list-search-box3 .el-date-editor {
-  --el-date-editor-width: 130px;
-  /* --el-fill-color-blank: #ff6600; */
-  --el-input-text-color: #232323;
-  /* --el-border-color: transparent; */
-}
-.list-table3 .el-table {
-  /* --el-table-border: 1px solid #e3e3e3;
-  --el-table-row-hover-bg-color: #e3e3e3;
-  --el-table-tr-bg-color: #e3e3e3; */
-  --el-table-header-bg-color: #e3e3e3;
-  --el-table-header-text-color: #e3e3e3;
-  --el-table-text-color: #e3e3e3;
-  --el-table-size-base: 14px;
+.page-title {
+  margin-bottom: 24px;
+  color: #333;
 }
 </style>
