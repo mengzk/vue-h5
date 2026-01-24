@@ -79,9 +79,6 @@ function parseRouter(list, path) {
         component: FrameLayout,
       });
     } else {
-      if (meta.hidden) {
-        return; // 如果菜单被隐藏，则不添加到菜单列表
-      }
       let itemPath = path ? `${path}/${item.path}` : item.path;
       if (itemPath.lastIndexOf("/") == itemPath.length - 1) {
         itemPath = itemPath.slice(0, -1); // 去掉结尾的斜杠

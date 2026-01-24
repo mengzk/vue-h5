@@ -8,12 +8,12 @@
             <span class="rc-menu-text">{{ menu.title }}</span>
           </template>
           <template v-for="child in menu.children" :key="child.name">
-            <el-menu-item :index="child.name" @click="onMenuClick(child)">
+            <el-menu-item v-if="child.meta.hidden" :index="child.name" @click="onMenuClick(child)">
               <span class="rc-menu-text2">{{ child.title }}</span>
             </el-menu-item>
           </template>
         </el-sub-menu>
-        <el-menu-item v-else :index="menu.name" @click="onMenuClick(menu)">
+        <el-menu-item v-else-if="menu.meta.hidden" :index="menu.name" @click="onMenuClick(menu)">
           <span class="rc-menu-text">{{ menu.title }}</span>
         </el-menu-item>
       </template>
@@ -74,7 +74,12 @@ function onHandleClose(key) {
 
 // 是否有子菜单
 function hasChildren(menu) {
-  return menu.children && menu.children.length > 1;
+  const hidden = menu.meta.hidden;
+  const children = menu.children||[];
+  if(hidden) {
+    return false;
+  }
+  return children.filter(e => !e.meta.hidden).length > 1;
 }
 
 // 菜单点击事件

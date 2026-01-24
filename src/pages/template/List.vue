@@ -1,18 +1,15 @@
 <template>
-  <div class="list">
+  <div class="list3">
     <h2 class="title">租户管理</h2>
-    <el-form class="search-box" :model="searchForm" ref="searchRef">
+    <el-form class="list-search-box3" :model="searchForm" ref="searchRef">
       <el-form-item label="关键字" prop="word">
-        <el-radio-group v-model="searchForm.word">
-          <el-radio value="1" size="large">租户</el-radio>
-          <el-radio value="2" size="large">代理账号</el-radio>
-        </el-radio-group>
+        <el-input v-model="searchForm.word" maxlenght="20" />
       </el-form-item>
       <el-form-item label="租户状态:" prop="status">
-        <el-radio-group v-model="searchForm.status">
-          <el-radio value="1" size="large">启用</el-radio>
-          <el-radio value="2" size="large">停用</el-radio>
-        </el-radio-group>
+        <el-select v-model="searchForm.status" placeholder="请选择">
+          <el-option label="停用" value="1" />
+          <el-option label="启用" value="2" />
+        </el-select>
       </el-form-item>
       <el-form-item label="租户使用到期日期:" prop="date">
         <el-date-picker
@@ -23,16 +20,16 @@
           clearable
         />
       </el-form-item>
-      <div class="search-btns">
+      <div class="list-search-btns3">
         <el-botton type="primary" @click="onSearch">搜索</el-botton>
         <el-botton @click="onReset">搜索</el-botton>
       </div>
     </el-form>
 
-    <div class="create-box">
+    <div class="list-action-box3">
       <el-botton type="primary">新建</el-botton>
     </div>
-    <div class="table">
+    <div class="list-table3">
       <el-table :data="tableData" stripe @row-click="onRowClick">
         <el-table-column fixed prop="id" label="ID" width="100px" />
         <el-table-column fixed prop="name" label="姓名" width="100px" />
@@ -41,7 +38,7 @@
         <el-table-column fixed prop="date" label="日期" width="100px" />
       </el-table>
     </div>
-    <div class="pagination">
+    <div class="list-pagination3">
       <el-pagination
         v-model:current-page="currentPage"
         v-model:page-size="pageSize"
@@ -162,32 +159,32 @@ async function loadData() {
 </script>
 
 <style scoped>
-.list {
+.list3 {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
-.search-box {
+.list-search-box3 {
   display: flex;
 }
-.search-btns {
+.list-search-btns3 {
   display: flex;
   align-items: center;
 }
-.create-box {
+.list-action-box3 {
   display: flex;
   justify-content: flex-end;
 }
-.table {
+.list-table3 {
   flex: 1;
   display: flex;
 }
-.pagination {
+.list-pagination3 {
   display: flex;
 }
 </style>
 <style>
-.login-form .el-input {
+.list-search-box3 .el-input {
   --el-input-width: 130px;
   --el-input-text-color: #232323;
   /* --el-border-color: #989796;
@@ -195,7 +192,7 @@ async function loadData() {
   --el-input-hover-border-color: #ff6600;
   --el-input-focus-border-color: #ff6600; */
 }
-.login-form .el-button {
+.list-search-box3 .el-button {
   --el-button-text-color: #ffffff;
   --el-button-bg-color: #ff6600;
   --el-button-hover-bg-color: #ff6600;
@@ -208,19 +205,19 @@ async function loadData() {
   width: 100%;
   height: 36px;
 }
-.search-box .el-select {
+.list-search-box3 .el-select {
   --el-select-width: 130px;
   /* --el-fill-color-blank: #ff6600; */
   --el-input-text-color: #232323;
   /* --el-border-color: transparent; */
 }
-.search-box .el-date-editor {
+.list-search-box3 .el-date-editor {
   --el-date-editor-width: 130px;
   /* --el-fill-color-blank: #ff6600; */
   --el-input-text-color: #232323;
   /* --el-border-color: transparent; */
 }
-.table .el-table {
+.list-table3 .el-table {
   /* --el-table-border: 1px solid #e3e3e3;
   --el-table-row-hover-bg-color: #e3e3e3;
   --el-table-tr-bg-color: #e3e3e3; */

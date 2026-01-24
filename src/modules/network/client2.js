@@ -36,7 +36,12 @@ export async function httpClient(options) {
             header: response.headers,
           };
         }
-        return { success: true, ...response.data };
+        const code2 = response.data.code;
+        if(code2 == 0 || code2 == 200) {
+          return { success: true, ...response.data };
+        }else {
+          return { ...response.data, success: true };
+        }
       } else {
         const msg = parseFail(code);
         return { code, msg, success: false, data: null };
