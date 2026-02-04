@@ -1,16 +1,12 @@
 <template>
   <div class="page">
     <h2 class="page-title">订单管理</h2>
-    <el-form class="search-box3" :model="searchForm" ref="searchFormRef">
-      <el-form-item label="关键词:" prop="keyword" style="width: 300px">
+    <el-form class="list-search-box3" :model="searchForm" ref="searchFormRef">
+      <el-form-item label="关键词:" prop="keyword">
         <el-input v-model="searchForm.keyword" />
       </el-form-item>
       <el-form-item label="应用状态:" prop="appStatus">
-        <el-select
-          v-model="searchForm.appStatus"
-          placeholder="全部"
-          style="width: 200px"
-        >
+        <el-select v-model="searchForm.appStatus" placeholder="全部">
           <el-option
             v-for="item in options"
             :key="item.key"

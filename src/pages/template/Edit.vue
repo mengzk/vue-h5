@@ -1,8 +1,5 @@
 <template>
   <div class="page-content">
-    <PageHeader title="添加租户" margin="16">
-      <el-button type="primary" @click="$router.push({ name: 'tenant' })">返回</el-button>
-    </PageHeader>
     <div class="scroll">
       <h3 class="label">基本信用</h3>
       <el-form class="top-content" :model="formModel" :rules="rules" ref="formRef">
@@ -66,8 +63,6 @@
         <el-checkbox size="large" label="lab1" value="level1">应用权限</el-checkbox>
         <el-checkbox size="large" label="lab2" value="level2">应用权限</el-checkbox>
         <el-checkbox size="large" label="lab3" value="level3">应用权限</el-checkbox>
-        <el-checkbox size="large" label="lab4" value="level4">应用权限</el-checkbox>
-        <el-checkbox size="large" label="lab5" value="level5">应用权限</el-checkbox>
       </el-checkbox-group>
     </div>
     <div>
