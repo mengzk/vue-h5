@@ -5,9 +5,9 @@
       <el-form-item label="关键词:" prop="keyword">
         <el-input v-model="searchForm.keyword" />
       </el-form-item>
-      <el-form-item label="应用状态:" prop="appStatus">
+      <el-form-item label="应用状态:" prop="status">
         <el-select
-          v-model="searchForm.appStatus"
+          v-model="searchForm.status"
           placeholder="全部"
         >
           <el-option
@@ -21,11 +21,9 @@
       <el-form-item label="创建日期:" prop="date">
         <el-date-picker
           v-model="searchForm.date"
-          type="daterange"
+          type="date"
           value-format="YYYY-MM-DD"
-          range-separator="至"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          placeholder="结束时间"
           :clearable="false"
         />
       </el-form-item>
@@ -48,12 +46,8 @@
         <el-table-column prop="modifierName" label="更新人" />
         <el-table-column fixed="right" label="操作" width="150">
           <template #default="scope">
-            <el-button link type="primary" @click="onEdit(scope.row)"
-              >编辑</el-button
-            >
-            <el-button link type="danger" @click="onDelAlert(scope.row)"
-              >删除</el-button
-            >
+            <el-button link type="primary" @click="onEdit(scope.row)">编辑</el-button>
+            <el-button link type="danger" @click="onDelAlert(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -87,7 +81,7 @@ import { ElMessageBox, ElMessage } from "element-plus";
 const searchFormRef = ref();
 const searchForm = reactive({
   keyword: "",
-  appStatus: "",
+  status: "",
   date: [],
 });
 
