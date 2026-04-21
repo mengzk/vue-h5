@@ -21,6 +21,11 @@ export default defineConfig(({ command, mode }) => {
 
   return {
     base: isDev ? "" : "./", // 设置资源相对路径下加载资源。
+    build: {
+      emptyOutDir: true,
+      assetsDir: 'assets',
+      outDir: '.output/demo/'
+    },
     plugins: [
       vue(),
       // vueJsx(),
