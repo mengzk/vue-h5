@@ -8,7 +8,7 @@ const instance = axios.create({
 // 请求事例
 export async function httpClient(options) {
   options.method = options.method.toUpperCase();
-  if (options.method == "GET") {
+  if (options.method == "GET" || options.method == "DELETE" ) {
     options.params = options.data;
     delete options.data;
   }

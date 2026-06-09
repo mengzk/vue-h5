@@ -43,7 +43,7 @@ import Loading from "@/components/widget/loading";
 import { chatV3Completions } from "@/apis/chat";
 
 // const avatar = "https://img.yzcdn.cn/vant/cat.jpeg";
-import robot from "@/assets/robot.png";
+import robot from "@/assets/user.png";
 import avatar from "@/assets/user.svg";
 
 const chatList = ref([]);

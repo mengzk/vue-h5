@@ -7,7 +7,6 @@
           <span class="item-title">{{ item.name }}</span>
           <span class="item-tag">{{ item.degree }}</span>
           <span>解读</span>
-          <img class="item-ic" :src="nextIc" />
         </div>
       </template>
     </div>
@@ -22,7 +21,6 @@ import { useRouter } from 'vue-router';
 import Header from '@/components/Header.vue';
 
 import useDetection from '@/stores/detection';
-import nextIc from '@/assets/arrow.png';
 
 // const props = defineProps({ data: { type: Object, required: false }  });
 
