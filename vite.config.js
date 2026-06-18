@@ -8,10 +8,23 @@
 import path from "path";
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
-// import vueJsx from "@vitejs/plugin-vue-jsx";
 import legacy from "@vitejs/plugin-legacy";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+// import pxToRem from "./pxtorem.config.js";
 
 const isDev = process.env.NODE_ENV !== "production";
+
+const buildConfig = isDev ? {} : {
+  minify: "terser",
+  terserOptions: {
+    compress: {
+      drop_console: true,
+      drop_debugger: true,
+    },
+  },
+};
 
 export default defineConfig(({ command, mode }) => {
   // 加载环境变量
@@ -23,13 +36,19 @@ export default defineConfig(({ command, mode }) => {
     build: {
       emptyOutDir: true,
       assetsDir: 'assets',
-      outDir: '.output/demo/'
+      outDir: '.output/demo/',
+      ...buildConfig,
     },
     plugins: [
       vue(),
-      // vueJsx(),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()],
+      }),
       legacy({
-        targets: ["chrome < 60", "edge < 15"],
+        targets: ["chrome >= 80", "edge >= 85"],
         modernPolyfills: true,
       }),
     ],
@@ -40,9 +59,9 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     css: {
-      postcss: {
-        plugins: [],
-      },
+      // postcss: {
+      //   plugins: [pxToRem],
+      // },
     },
     server: {
       /** 设置 host: true 才可以使用 Network 的形式，以 IP 访问项目 */

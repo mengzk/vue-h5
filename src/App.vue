@@ -14,18 +14,12 @@ import { launchApp } from "@/utils/launch";
 // const router = useRouter();
 const inited = ref(false);
 
-// 初始化
 onMounted(async () => {
   const res = getUrlParams();
   console.log("---> query", res);
 
-  // 启动应用
   await launchApp();
-  // 初始化-信息
-  const timer = setTimeout(() => {
-    inited.value = true;
-    clearTimeout(timer);
-  }, 1000);
+  inited.value = true;
 });
 </script>
 

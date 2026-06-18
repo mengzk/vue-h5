@@ -10,7 +10,6 @@ export function getHomeData(params={}) {
   return request({
     path: "/home",
     method: "GET",
-    requestType
   }).then(res => {
     if(res.code == 0) {
       return res;

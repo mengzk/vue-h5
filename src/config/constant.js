@@ -11,7 +11,7 @@ const Constants = {
   version: "1.0.0",
   secret: "",
   appId: "",
-  token: "test token",
+  token: "",
   userId: "",
   userName: "",
   userPhone: "",
